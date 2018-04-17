@@ -15,7 +15,7 @@ with open('classifiers.txt') as fs:
 
 
 def readme():
-    with open('README.rst') as fs:
+    with open('README.md') as fs:
         return fs.read()
 
 setup(name='hydrobox',
