@@ -1,0 +1,5 @@
+include README.rst
+include VERSION.txt
+include requirements.txt
+include LICENSE
+include classifiers.txt
