@@ -2,9 +2,13 @@
 The sql submodule offers a number of connectors to SQL powered backends.
 These Connectors are most-likely very Project specific, but can be extended.
 """
-from sqlalchemy import create_engine
 import os
+from datetime import datetime
 
+from sqlalchemy import create_engine
+import pandas as pd
+
+from hydrobox.utils.decorators import accept
 
 class Connection:
     """
@@ -116,3 +120,126 @@ class Connection:
             return self.engine.connect()
         else:
             raise ValueError('The Connection is missing information.')
+
+
+@accept(meta_id=int, start=('None', datetime), stop=('None', datetime))
+def vforwater_timeseries_by_id(meta_id, start=None, stop=None, **kwargs):
+    """
+    V-FOR-WaTer Importer
+    --------------------
+
+    ** Note: this function needs the V-FOR-WaTer database be running at a location
+    that is reachable for this function and the connection has to be set through
+    environment variables, the ~/.hbconnect file or by kwargs. More details given
+    in the :class:`Connection`. An V-FOR-WaTer database instance can be installed
+    using the `metacatalog` package.**
+
+    Usage
+    -----
+    You need to specify the meta_id as used in the `metacatalog` data model.
+    `start` and `stop` can be used to limit the data by timestamp.
+
+    The connection will be inferred from different locations by the order:
+
+      1. kwargs
+      2. OS environment variables
+      3. ~/.hbconnect file
+
+    TODO: import metacatalog here and use the Entry class
+
+    Parameter
+    ---------
+    :param meta_id: integer, the meta_id to be loaded
+    :param start: datetime, load data >= this timestamp
+    :param stop: datetime, load data <= this timestamp
+    :param kwargs: connection settings
+    :return: :class:`pandas.Series`
+    """
+    # try to use the kwargs
+    C = Connection(**kwargs)
+
+    # use environment instead
+    if not C.valid:
+        C = Connection.from_environ()
+
+    # use file
+    if not C.valid:
+        C = Connection.from_file()
+
+    if not C.valid:
+        raise ValueError('Cannot find any connection setting to a V-FOR-WaTer backend')
+
+    # build the query
+    sql = 'select tstamp, value from tbl_data where meta_id=%d' % meta_id
+
+    # start date filter
+    if start is not None:
+        sql += " and tstamp>='%s'" % start.strftime('%Y/%m/%d %H:%M:%S')
+
+    # end date filter
+    if stop is not None:
+        sql += " and tstamp<='%s'" % stop.strftime('%Y/%m/%d %H:%M:%S')
+
+    with C.get_connection() as con:
+        df = pd.read_sql(sql=sql, con=con)
+        series = df.value
+        series.index = df.tstamp
+
+    return series
+
+
+@accept(sql=str, index_name=str, value_name=str)
+def from_sql(sql,index_name='tstamp', value_name='value', **kwargs):
+    """
+    SQL Importer
+    --------------------
+
+    ** Note: this function needs a SQL powered backend running at a location that is reachable
+    for this function. The connection has to be set through environment variables,
+    the ~/.hbconnect file or by kwargs. More details given in the :class:`Connection`. **
+
+    Usage
+    -----
+    You need to pass a `sql` filter. These filter are SQL statements that will load the data.
+    This filter has to load exactly two columns, a DatetimeIndex and a value column. Their names
+    can be set by the `index_name` and `value_name` attributes.
+
+    The connection will be inferred from different locations by the order:
+
+      1. kwargs
+      2. OS environment variables
+      3. ~/.hbconnect file
+
+
+    Parameter
+    ---------
+    :param sql: string, the sql filter to be applied
+    :param kwargs: connection settings
+    :return: :class:`pandas.Series`
+    """
+    # try to use the kwargs
+    C = Connection(**kwargs)
+
+    # use environment instead
+    if not C.valid:
+        C = Connection.from_environ()
+
+    # use file
+    if not C.valid:
+        C = Connection.from_file()
+
+    if not C.valid:
+        raise ValueError('Cannot find any connection setting to a V-FOR-WaTer backend')
+
+    # load the data
+    with C.get_connection() as con:
+        df = pd.read_sql(sql, con)
+        series = df[value_name]
+        series.index = df[index_name]
+
+    # fail, if not a time series
+    assert isinstance(series.index, pd.DatetimeIndex)
+
+    return series
+
+

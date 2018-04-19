@@ -49,8 +49,8 @@ python /path/to/hydrobox/tests/decorators.py
 ```
 
 
-Alternatively, nose is integrated to run either :code:`nosetests` in the repository root
-or run the setup.py with the :code:`test` keyword like:
+Alternatively, nose is integrated to run either `nosetests` in the repository root
+or run the setup.py with the `test` keyword like:
 
 ```bash
 python setup.py test
@@ -67,7 +67,7 @@ python setup.py test
 ## Getting Started
 
 
-Most of the tools are available either as a function or a class importet into the :code:`toolbox` module.
+Most of the tools are available either as a function or a class importet into the `toolbox` module.
 Most tools accept numpy types as input and will use them for return, as well. This way the HydroBox should
 integrate with your common data analysis tools. The non-plotted flow duration curve could for example be used
 like:
@@ -81,7 +81,7 @@ np.random.seed(42)
 gamma = np.random.gamma(2,2,size=20)
 
 # run the flow duration curve without plotting
-probs = flow_duration_curve(gamme, plot=False)
+probs = flow_duration_curve(gamma, plot=False)
 
 print('Type:', type(probs))
 print(probs)
