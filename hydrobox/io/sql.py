@@ -124,15 +124,14 @@ class Connection:
 
 @accept(meta_id=int, start=('None', datetime), stop=('None', datetime))
 def vforwater_timeseries_by_id(meta_id, start=None, stop=None, **kwargs):
-    """
-    V-FOR-WaTer Importer
-    --------------------
+    """V-FOR-WaTer Importer
 
-    ** Note: this function needs the V-FOR-WaTer database be running at a location
-    that is reachable for this function and the connection has to be set through
-    environment variables, the ~/.hbconnect file or by kwargs. More details given
-    in the :class:`Connection`. An V-FOR-WaTer database instance can be installed
-    using the `metacatalog` package.**
+    .. warning::
+        this function needs the V-FOR-WaTer database be running at a location
+        that is reachable for this function and the connection has to be set
+        through environment variables, the ~/.hbconnect file or by kwargs.
+        More details given in the :class:`Connection`. An V-FOR-WaTer
+        database instance can be installed using the `metacatalog` package.
 
     Usage
     -----
@@ -145,15 +144,44 @@ def vforwater_timeseries_by_id(meta_id, start=None, stop=None, **kwargs):
       2. OS environment variables
       3. ~/.hbconnect file
 
-    TODO: import metacatalog here and use the Entry class
+    Parameters
+    ----------
+    meta_id : integer,
+        the meta_id to be loaded. Refer to the V-FOR-WaTer project (
+        http://vforwater.de) or  ``metacatalog`` for more information
+    start : datetime,
+        load data >= this timestamp
+    stop : datetime,
+        load data <= this timestamp
+    driver : string, optional
+        The database driver, e.g. `postgresql` or `sqlite`
+        Only needed for direct connection settings.
+    host : string, optional
+        The address of the server
+        Only needed for direct connection settings.
+    port : string, int, optional
+        Port, the server is listing to
+        Only needed for direct connection settings.
+    user : string, optional
+        Database username
+        Only needed for direct connection settings.
+    password : string, optional
+        User password. **Note:** Consoles like the IPython console have a
+        history function and will store the password if passed as keyword
+        argument. This is not recommended. Only needed for direct connection
+        settings.
+    dbname : string, optional
+        The database name to connect to.
+        Only needed for direct connection settings.
 
-    Parameter
-    ---------
-    :param meta_id: integer, the meta_id to be loaded
-    :param start: datetime, load data >= this timestamp
-    :param stop: datetime, load data <= this timestamp
-    :param kwargs: connection settings
-    :return: :class:`pandas.Series`
+    See Also
+    --------
+    from_sql
+
+    Returns
+    -------
+    ``pandas.Series``
+
     """
     # try to use the kwargs
     C = Connection(**kwargs)
@@ -190,13 +218,12 @@ def vforwater_timeseries_by_id(meta_id, start=None, stop=None, **kwargs):
 
 @accept(sql=str, index_name=str, value_name=str)
 def from_sql(sql,index_name='tstamp', value_name='value', **kwargs):
-    """
-    SQL Importer
-    --------------------
+    """SQL Importer
 
-    ** Note: this function needs a SQL powered backend running at a location that is reachable
-    for this function. The connection has to be set through environment variables,
-    the ~/.hbconnect file or by kwargs. More details given in the :class:`Connection`. **
+    .. warning::
+        Note: this function needs a SQL powered backend running at a location that is reachable
+        for this function. The connection has to be set through environment variables,
+        the ~/.hbconnect file or by kwargs. More details given in the :class:`Connection`.
 
     Usage
     -----
@@ -211,11 +238,44 @@ def from_sql(sql,index_name='tstamp', value_name='value', **kwargs):
       3. ~/.hbconnect file
 
 
-    Parameter
-    ---------
-    :param sql: string, the sql filter to be applied
-    :param kwargs: connection settings
-    :return: :class:`pandas.Series`
+    Parameters
+    ----------
+    sql : string
+        The SQL filter to be applied
+    index_name : string, default: 'tstamp'
+        The SQL attribute holding the timestamp (datetime) information used for the
+        :class:`pandas.Series` index. Will be converted to a ``pandas.DatetimeIndex``.
+    value_name : string, default: 'value'
+        The SQL attribute holding the value itself. Will be converted to the value column in the
+        :class:`pandas.Series`
+    driver : string, optional
+        The database driver, e.g. `postgresql` or `sqlite`
+        Only needed for direct connection settings.
+    host : string, optional
+        The address of the server
+        Only needed for direct connection settings.
+    port : string, int, optional
+        Port, the server is listing to
+        Only needed for direct connection settings.
+    user : string, optional
+        Database username
+        Only needed for direct connection settings.
+    password : string, optional
+        User password. **Note:** Consoles like the IPython console have a history function and
+        will store the password if passed as keyword argument. This is not recommended.
+        Only needed for direct connection settings.
+    dbname : string, optional
+        The database name to connect to.
+        Only needed for direct connection settings.
+
+    See Also
+    --------
+    vforwater_timeseries_by_id
+
+    Returns
+    -------
+    :class:`pandas.Series`
+
     """
     # try to use the kwargs
     C = Connection(**kwargs)
