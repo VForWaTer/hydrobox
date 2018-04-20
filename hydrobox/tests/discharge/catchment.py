@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import pandas as pd
 from numpy.testing import assert_array_almost_equal
-from hydrobox.discharge.stats import flow_duration_curve, regime
+from hydrobox.discharge.catchment import flow_duration_curve, regime
 
 # some result container
 PROBCALC = np.array([0.04761905, 0.0952381, 0.14285714, 0.19047619, 0.23809524, 0.28571429,  0.33333333,
@@ -122,7 +122,7 @@ class TestRegime(unittest.TestCase):
         :return:
         """
         np.random.seed(42)
-        self.df = pd.DataFrame(
+        self.series = pd.Series(
             index=pd.date_range('20000101', '20021231', freq='D'),
             data=np.random.gamma(2, 2, 3*365 + 1))
 
@@ -132,7 +132,7 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.df, plot=False).values.flatten(), REGIME_MEDIAN)
+        assert_array_almost_equal(regime(self.series, plot=False).flatten(), REGIME_MEDIAN)
 
     def test_aggregation_mean(self):
         """
@@ -140,7 +140,7 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.df, plot=False, agg=np.nanmean).values.flatten(), REGIME_MEAN)
+        assert_array_almost_equal(regime(self.series, plot=False, agg='nanmean').flatten(), REGIME_MEAN)
 
     def test_normalized_median(self):
         """
@@ -148,7 +148,7 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.df, plot=False, normalize=True).values.flatten(),
+        assert_array_almost_equal(regime(self.series, plot=False, normalize=True).flatten(),
                                   REGIME_NORMALIZED_MEDIAN)
 
     def test_normalized_mean(self):
@@ -157,7 +157,7 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.df, plot=False, normalize=True, agg=np.nanmean).values.flatten(),
+        assert_array_almost_equal(regime(self.series, plot=False, normalize=True, agg='nanmean').flatten(),
                                   REGIME_NORMALIZED_MEAN)
 
     def test_quantiles_calculation(self):
@@ -166,7 +166,8 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.df, plot=False, quantiles=4).values,
+        assert_array_almost_equal(regime(self.series, plot=False,
+                                         quantiles=4).values,
                                   REGIME_QUANTILES)
 
     def test_quantiles_normalized(self):
@@ -175,7 +176,7 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.df, plot=False, quantiles=4, normalize=True).values,
+        assert_array_almost_equal(regime(self.series, plot=False, quantiles=4, normalize=True).values,
                                   REGIME_QUANTILES_NORMALIZED)
 
     def test_quantiles_mean(self):
@@ -184,7 +185,7 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.df, plot=False, quantiles=4, agg=np.nanmean).values,
+        assert_array_almost_equal(regime(self.series, plot=False, quantiles=4, agg='nanmean').values,
                                   REGIME_QUANTILES_MEAN)
 
 if __name__ == '__main__':

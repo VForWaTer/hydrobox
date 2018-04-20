@@ -1,5 +1,5 @@
 """
-Tools for extreme value statistics on discharge measurements.
+Common tools for diagnosic tools frequently used in catchment hydrology.
 
 """
 from hydrobox.utils.decorators import accept
@@ -44,8 +44,10 @@ def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **k
 
     Returns
     -------
-    matplotlib.AxesSubplot : if `plot` was `True`
-    numpy.ndarray : if `plot was `False`
+    matplotlib.AxesSubplot :
+        if `plot` was `True`
+    numpy.ndarray :
+        if `plot was `False`
 
     Notes
     -----
@@ -174,9 +176,12 @@ def regime(x, quantiles=None, normalize=False, agg='nanmedian', plot=True,
 
     Returns
     -------
-    matplotlib.AxesSubplot : if `plot` was `True`
-    pandas.DataFrame : if `plot` was `False` and `quantiles` are not None
-    numpy.ndarray :   if `plot` was `False` and `quantiles` is None
+    matplotlib.AxesSubplot :
+        if `plot` was `True`
+    pandas.DataFrame :
+        if `plot` was `False` and `quantiles` are not None
+    numpy.ndarray :
+        if `plot` was `False` and `quantiles` is None
 
     """
     if not isinstance(x.index, pd.DatetimeIndex):
@@ -195,7 +200,7 @@ def regime(x, quantiles=None, normalize=False, agg='nanmedian', plot=True,
     idx = [int(datetime.strftime(_, '%m')) for _ in x.index]
 
     # aggregate the regime and set the index
-    df = x.groupby(idx).aggregate(agg)
+    df = pd.DataFrame(x).groupby(idx).aggregate(agg)
     df.set_index(np.unique(idx), inplace=True)
 
     # build quantiles
