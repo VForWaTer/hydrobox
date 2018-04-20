@@ -3,6 +3,8 @@
 **The HydroBox is mainly a toolbox used in the [V-FOR-WaTer](https://vforwater.de) Project. It will be expanded to
 serve general hydrological data exploration with a future release.**
 
+<div class="alert alert-info>The full documentation can be found at: http://hydrobox
+.readthedocs.io</div>
 
 The HydroBox package is a toolbox for hydrological data analysis developed at the
 [Chair of Hydrology](https://hyd.iwg.kit.edu/english/index.php) at the

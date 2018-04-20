@@ -25,7 +25,7 @@ There might be a more recent version on GitHub available. This can be installed 
 
 .. code-block:: bash
 
-    git clone https://git.scc.kit.edu/aw6481/hydrobox.git
+    git clone https://github.com/mmaelicke/hydrobox.git
     cd hydrobox
     pip install -r requirements.txt
     pip install -e .

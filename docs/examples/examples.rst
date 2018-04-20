@@ -79,7 +79,7 @@ Plot the result
 .. ipython:: python
 
     # If not encapsulated in a WPS server, the tool can also plot
-    @savefig examples_single_fdc.png width=5in
+    @savefig examples_single_fdc.png width=4in
     toolbox.flow_duration_curve(series_daily.values);
 
 
@@ -95,5 +95,5 @@ order to fit seamlessly into reports etc.
     toolbox.flow_duration_curve(series.values, ax=axes[1]);
     axes[0].set_title('aggregated');
     axes[1].set_title('non-aggregated');
-    @savefig examples_double_fdc.png width=10in
+    @savefig examples_double_fdc.png width=8in
     plt.show();

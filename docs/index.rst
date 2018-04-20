@@ -9,13 +9,14 @@ Welcome to HydroBox's documentation!
 ====================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 2
+    :caption: Contents:
 
-   installation
-   getting started
-   examples
-   load data
+    installation
+    getting started
+    examples/examples
+    reference/reference
+
 
 .. warning::
 

@@ -24,9 +24,9 @@ copyright = '2018, Mirko Mälicke'
 author = 'Mirko Mälicke'
 
 # The short X.Y version
-version = ''
+version = '0.1.0'
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -47,8 +47,12 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+#    'sphinx.ext.autodoc',
+#    'sphinx.ext.inheritance_diagram',
+#    'autoapi.sphinx',
     'IPython.sphinxext.ipython_console_highlighting',
-    'IPython.sphinxext.ipython_directive'
+    'IPython.sphinxext.ipython_directive',
+    'numpydoc'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -85,7 +89,7 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 #html_theme = 'alabaster'
-html_theme = 'nature'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
