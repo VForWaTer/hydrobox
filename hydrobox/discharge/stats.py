@@ -13,24 +13,62 @@ from scipy.stats import rankdata
 
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-@accept(x=np.ndarray,log=bool, plot=bool, non_exceeding=bool, ax=('None', SubplotBase))
+
+@accept(x=(np.ndarray, pd.Series),log=bool, plot=bool, non_exceeding=bool,
+ax=('None', SubplotBase))
 def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **kwargs):
+    """Calculate a flow duration curve
+
+    Calculate flow duration curve from the discharge measurements. The
+    function can either return a ``matplotlib`` plot or return the ordered (
+    non)-exceeding probabilities of the observations. These values can then
+    be used in any external plotting environment.
+
+    In case x.ndim > 1, the function will be called iteratively along axis 0.
+
+    Parameters
+    ----------
+    x :   numpy.ndarray, pandas.Series
+        Series of prefereably discharge measurements
+    log :  bool, default=True
+        if `True` plot on loglog axis, ignored when plot is `False`
+    plot : bool, default=True
+        if `False` plotting will be suppressed and the resulting array will
+        be returned
+    non_exceeding : bool, default=True
+        if `True` use non-exceeding probabilities
+    ax : matplotlib.AxesSubplot, default=None
+        if not None, will plot into that AxesSubplot instance
+    kwargs : kwargs,
+        will be passed to the ``matplotlib.pyplot.plot`` function
+
+    Returns
+    -------
+    matplotlib.AxesSubplot : if `plot` was `True`
+    numpy.ndarray : if `plot was `False`
+
+    Notes
+    -----
+    The probabilities are calculated using the Weibull empirical probability.
+    Following [1]_, this probability can be calculated as:
+
+    .. math:: p =m/(n + 1)
+
+    where `m` is the rank of an observation in the ordered time series and
+    `n` are the total observations. The increasion by one will prevent 0%
+    and 100% probabilities.
+
+    References
+    ----------
+    ..  [1] Sloto, R. a., & Crouse, M. Y. (1996). Hysep: a computer program
+        for streamflow hydrograph separation and analysis. U.S. Geological
+        Survey Water-Resources Investigations Report, 96(4040), 54.
+
     """
-    Calculate and draw a flow duration curve from the discharge measurements.
+    # omit the Series index
+    if isinstance(x, pd.Series):
+        x = x.values
 
-    All oberservations will be ordered and the Weibull empirical probability will be calculated.
-    The ordered probabilities are plotted as a flow duration curve.
-
-    In case x.ndim > 1, the function will be called iterativly along axis 0.
-
-    :param x:   numpy.ndarray of discharge measurements
-    :param log:  bool, if True plot on loglog axis, ignored when plot is False
-    :param plot: bool, if False not plotting, returning the result instead
-    :param non_exceeding: bool, if true use non-exceeding probalilities
-    :param ax: matplotlib Subplot object, if not None, will plot into that instance
-    :param kwargs: will be passed to the matplotlib.pyplot.plot function
-    :return:
-    """
     # if x has more than one dimension call this func recursive along axis=0
     if x.ndim > 1:
         # check if plot was None, then iterate along axis=0
@@ -87,24 +125,59 @@ def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **k
     return ax
 
 
-@accept(x=(pd.DataFrame, pd.Series),
+@accept(x=pd.Series,
         quantiles=('None', int, list, np.ndarray),
         normalize=bool,
-        agg='callable',
+        agg=str,
         plot=bool,
         ax=('None', SubplotBase))
-def regime(x, quantiles=None, normalize=False, agg=np.nanmedian, plot=True, ax=None, **kwargs):
-    """
-    Calculate a hydrologic regime from given :py:class:: `pandas.DataFrame` or :py:class:: `pandas.Series`. The index
-    has to be of type :py:class:: `pandas.DatetimeIndex`.
+def regime(x, quantiles=None, normalize=False, agg='nanmedian', plot=True,
+           ax=None, **kwargs):
+    """Calculate hydrological regime
 
-    :param x:
-    :param quantiles:
-    :param normalize:
-    :param agg:
-    :param plot:
-    :param ax:
-    :return:
+    Calculate a hydrological regime from discharge measurements. A regime is
+    a annual overview, where all observations are aggregated across the
+    month. Therefore it does only make sense to calculate a regime over more
+    than one year with a temporal resolution higher than monthly.
+
+    The regime can either be plotted or the calculated monthly aggreates can
+    be returned (along with the quantiles, if any were calculated).
+
+    Parameters
+    ----------
+    x : pandas.Series
+        The ``Series`` has to be indexed by a ``pandas.DatetimeIndex`` and
+        hold the preferably discharge measurements. However, the methods
+        does also work for other observables, if `agg` is adjusted.
+    quantiles : int, list, numpy.ndarray, default=None
+        quantiles can be used to calculate quantiles along with the main
+        aggregate. The quantiles can either be set by an integer or a list.
+        If an integer is passed, that many quantiles will be evenly spreaded
+        between the 0th and 100th quantile. A list can set the desired
+        quantiles directly.
+    normalize : bool, default=False
+        If `True`, the regime will be normalized by the aggregate over all
+        months. Then the numbers do not give the discharge itself, but the
+        ratio of the monthly discharge to the overall discharge.
+    agg : string, default='nanmedian'
+        Define the function used for aggregation. Usually this will be
+        'mean' or 'median'. If there might be `NaN` values in the
+        observations, the 'nan' prefixed functions can be used. In general,
+        any aggregating function, which can be imported from ``numpy`` can
+        be used.
+    plot : bool, default=True
+        if `False` plotting will be suppressed and the resulting
+        ``pandas.DataFrame`` will be returned. In case `quantiles` was None,
+        only the regime values will be returned as `numpy.ndarray`
+    ax : matplotlib.AxesSubplot, default=None
+        if not None, will plot into that AxesSubplot instance
+
+    Returns
+    -------
+    matplotlib.AxesSubplot : if `plot` was `True`
+    pandas.DataFrame : if `plot` was `False` and `quantiles` are not None
+    numpy.ndarray :   if `plot` was `False` and `quantiles` is None
+
     """
     if not isinstance(x.index, pd.DatetimeIndex):
         raise ValueError('The data has to be indexed by a pandas.DatetimeIndex.')
@@ -113,9 +186,10 @@ def regime(x, quantiles=None, normalize=False, agg=np.nanmedian, plot=True, ax=N
     if isinstance(quantiles, int):
         quantiles = np.linspace(0, 100, quantiles + 1, endpoint=False)[1:]
 
-    # check if n - dimensional
-    if isinstance(x, pd.DataFrame) and len(x.columns) > 1:
-        raise NotImplementedError
+    try:
+        agg = getattr(np, agg)
+    except AttributeError:
+        raise ValueError('The function %s cannot be imported from numpy')
 
     # create month index
     idx = [int(datetime.strftime(_, '%m')) for _ in x.index]
@@ -135,7 +209,10 @@ def regime(x, quantiles=None, normalize=False, agg=np.nanmedian, plot=True, ax=N
             df[col] = df[col] / agg(df[col])
 
     if not plot:
-        return df
+        if len(df.columns) == 1:
+            return df.values
+        else:
+            return df
 
     # create the plot
     if ax is None:
