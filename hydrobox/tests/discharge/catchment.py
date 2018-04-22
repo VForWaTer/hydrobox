@@ -167,7 +167,7 @@ class TestRegime(unittest.TestCase):
         :return:
         """
         assert_array_almost_equal(regime(self.series, plot=False,
-                                         quantiles=4).values,
+                                         percentiles=4).values,
                                   REGIME_QUANTILES)
 
     def test_quantiles_normalized(self):
@@ -176,7 +176,7 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.series, plot=False, quantiles=4, normalize=True).values,
+        assert_array_almost_equal(regime(self.series, plot=False, percentiles=4, normalize=True).values,
                                   REGIME_QUANTILES_NORMALIZED)
 
     def test_quantiles_mean(self):
@@ -185,7 +185,7 @@ class TestRegime(unittest.TestCase):
 
         :return:
         """
-        assert_array_almost_equal(regime(self.series, plot=False, quantiles=4, agg='nanmean').values,
+        assert_array_almost_equal(regime(self.series, plot=False, percentiles=4, agg='nanmean').values,
                                   REGIME_QUANTILES_MEAN)
 
 if __name__ == '__main__':

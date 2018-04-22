@@ -128,14 +128,14 @@ def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **k
 
 
 @accept(x=pd.Series,
-        quantiles=('None', int, list, np.ndarray),
+        percentiles=('None', int, list, np.ndarray),
         normalize=bool,
-        agg=str,
+        agg=(str, 'callable'),
         plot=bool,
         ax=('None', SubplotBase))
-def regime(x, quantiles=None, normalize=False, agg='nanmedian', plot=True,
+def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
            ax=None, **kwargs):
-    """Calculate hydrological regime
+    r"""Calculate hydrological regime
 
     Calculate a hydrological regime from discharge measurements. A regime is
     a annual overview, where all observations are aggregated across the
@@ -151,12 +151,12 @@ def regime(x, quantiles=None, normalize=False, agg='nanmedian', plot=True,
         The ``Series`` has to be indexed by a ``pandas.DatetimeIndex`` and
         hold the preferably discharge measurements. However, the methods
         does also work for other observables, if `agg` is adjusted.
-    quantiles : int, list, numpy.ndarray, default=None
-        quantiles can be used to calculate quantiles along with the main
-        aggregate. The quantiles can either be set by an integer or a list.
-        If an integer is passed, that many quantiles will be evenly spreaded
-        between the 0th and 100th quantile. A list can set the desired
-        quantiles directly.
+    percentiles : int, list, numpy.ndarray, default=None
+        percentiles can be used to calculate percentiles along with the main
+        aggregate. The percentiles can either be set by an integer or a list.
+        If an integer is passed, that many percentiles will be evenly spreaded
+        between the 0th and 100th percentiles. A list can set the desired
+        percentiles directly.
     normalize : bool, default=False
         If `True`, the regime will be normalized by the aggregate over all
         months. Then the numbers do not give the discharge itself, but the
@@ -188,30 +188,35 @@ def regime(x, quantiles=None, normalize=False, agg='nanmedian', plot=True,
         raise ValueError('The data has to be indexed by a pandas.DatetimeIndex.')
 
     # create the percentiles
-    if isinstance(quantiles, int):
-        quantiles = np.linspace(0, 100, quantiles + 1, endpoint=False)[1:]
+    if isinstance(percentiles, int):
+        percentiles = np.linspace(0, 100, percentiles + 1, endpoint=False)[1:]
 
-    try:
-        agg = getattr(np, agg)
-    except AttributeError:
-        raise ValueError('The function %s cannot be imported from numpy')
+    if callable(agg):
+        f = agg
+    else:
+        try:
+            f = getattr(np, agg)
+        except AttributeError:
+            raise ValueError('The function %s cannot be imported from numpy')
 
     # create month index
     idx = [int(datetime.strftime(_, '%m')) for _ in x.index]
 
     # aggregate the regime and set the index
-    df = pd.DataFrame(x).groupby(idx).aggregate(agg)
+    if isinstance(x, pd.Series):
+        x = pd.DataFrame(index=x.index, data=x.values)
+    df = x.groupby(idx).aggregate(f)
     df.set_index(np.unique(idx), inplace=True)
 
-    # build quantiles
-    if quantiles is not None:
-        for q in quantiles:
+    # build percentiles
+    if percentiles is not None:
+        for q in percentiles:
             df['q%d' % q] = x.groupby(idx).aggregate(lambda v: np.nanpercentile(v, q))
 
     # handle normalize
     if normalize:
         for col in df.columns:
-            df[col] = df[col] / agg(df[col])
+            df[col] = df[col] / f(df[col])
 
     if not plot:
         if len(df.columns) == 1:
@@ -239,7 +244,8 @@ def regime(x, quantiles=None, normalize=False, agg='nanmedian', plot=True,
 
         # plot
         for i in range(len(df.columns) - 2, 1, -1):
-            ax.fill_between(df.index, df.iloc[:, i], df.iloc[:, i -1], interpolate=True, color=cmap[i - 1])
+            ax.fill_between(df.index, df.iloc[:, i], df.iloc[:, i - 1], interpolate=True,
+                            color=cmap[i - 1])
 
     # plot the main aggregate
     ax.plot(df.index, df.iloc[:, 0], linestyle=kwargs['linestyle'], color=cm(0.0), lw=kwargs['lw'])
