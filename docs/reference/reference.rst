@@ -12,4 +12,5 @@ Reference
 
     io
     preprocessing
+    stats
     discharge
