@@ -53,19 +53,19 @@ class TestAcceptDecorator(unittest.TestCase):
         """
         # define test
         func = lambda x: x
-        @accept(a='f', b='lambda', c='callable')
-        def f(a, b, c):
+        @accept(a='callable')
+        def f(a):
             pass
 
         # call it
         try:
-            f(func, func, func)
+            f(func)
         except TypeError:
             self.fail('TypeError raised by accept decorator')
 
         # test failure
         with self.assertRaises(TypeError):
-            f(5,func,func)
+            f(5)
 
     def test_none_values(self):
         """

@@ -47,7 +47,7 @@ def accept(**types):
                         continue
 
                 # check type
-                if argtype == 'f' or argtype == 'callable' or argtype == 'lambda':
+                if argtype == 'callable':
                     if not callable(argval):
                         raise TypeError('%s(...): arg %s: type is %s, but shall be callable.' % (fname, argname, type(argval)))
                     else:
@@ -64,6 +64,17 @@ def accept(**types):
                     argtype = list(argtype)
                     argtype.remove('None')
                     argtype = tuple(argtype)
+
+                # check if there is a 'callable' in argtype
+                if isinstance(argtype, (tuple, list)) and 'callable' in argtype:
+                    argtype = list(argtype)
+                    argtype.remove('callable')
+                    argtype = tuple(argtype)
+                    # this is a special case
+                    if not isinstance(argval, argtype) and not callable(argval):
+                        raise TypeError("{0}(...); arg {1}: is not callable or of type {2}".format(fname, argname, argtype))
+                    else:
+                        continue
 
                 if not isinstance(argval, argtype):
                     raise TypeError("%s(...): arg %s: type is %s, must be %s." %
