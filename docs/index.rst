@@ -8,15 +8,14 @@
 Welcome to HydroBox's documentation!
 ====================================
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Contents:
+.. image:: https://travis-ci.org/mmaelicke/hydrobox.svg?branch=master
+    :target: https://travis-ci.org/mmaelicke/hydrobox
 
-    installation
-    getting started
-    examples/examples
-    reference/reference
+.. image:: https://readthedocs.org/projects/hydrobox/badge/?version=latest
+    :target: http://hydrobox.readthedocs.io/en/latest?badge=latest
 
+.. image:: https://codecov.io/gh/mmaelicke/hydrobox/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/mmaelicke/hydrobox
 
 .. warning::
 
@@ -35,9 +34,21 @@ numpy and pandas input formats and wrap around scipy functionality. This way can
 - speed up common hydrological data analysis tasks
 - integrate fully with custom numpy/pandas/scipy code
 
+Jump directly to the :doc:`installation section <installation>` or :doc:`get started <getting_started>`.
+
 .. _Chair of Hydrology: https://hyd.iwg.kit.edu/english/index.php
 .. _Karlsruhe Institute of Technology (KIT): https://kit.edu/english/index.php
 
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Contents:
+
+    installation
+    getting_started
+    examples/examples
+    contribution
+    reference/reference
 
 Indices and tables
 ==================

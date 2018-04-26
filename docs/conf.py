@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'sphinx.ext.intersphinx',
 #    'sphinx.ext.autodoc',
 #    'sphinx.ext.inheritance_diagram',
 #    'autoapi.sphinx',
@@ -177,3 +178,11 @@ texinfo_documents = [
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+# -- Intersphinx mapping -----------------------------------------------------
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3.6', None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
+    'numpy':  ('https://docs.scipy.org/doc/numpy', None),
+    'scipy':  ('https://docs.scipy.org/doc/scipy/reference', None)
+}

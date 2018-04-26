@@ -173,6 +173,27 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
         only the regime values will be returned as `numpy.ndarray`
     ax : matplotlib.AxesSubplot, default=None
         if not None, will plot into that AxesSubplot instance
+    cmap : string, optional
+        Specify a colormap for generating the Percentile areas is a smooth
+        color gradient. This has to be a valid colormap reference,
+        see https://matplotlib.org/examples/color/colormaps_reference.html.
+        Defaults to ``'Blue'``.
+    color : string, optional
+        Define the color of the main aggregate. If ``None``, the first color
+        of the specified cmap will be used.
+    lw : int, optinal
+        linewidth parameter in pixel. Defaults to 3.
+    linestyle : string, optional
+        Any valid matplotlib linestyle definition is accepted.
+
+            ``':'``    -  dotted
+
+            ``'-.'``   -  dash-dotted
+
+            ``'--'``   -  dashed
+
+            ``'-'``    -  solid
+
 
     Returns
     -------
@@ -183,9 +204,17 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
     numpy.ndarray :
         if `plot` was `False` and `quantiles` is None
 
+    Notes
+    -----
+
+    In case the color argument is not passed it will default to the first
+    color in the the specified colormap (cmap). You might want to overwrite
+    this in case no percentiles are produced, as many colormaps range from
+    light to dark colors and the first color might just default to while.
+
     """
     if not isinstance(x.index, pd.DatetimeIndex):
-        raise ValueError('The data has to be indexed by a pandas.DatetimeIndex.')
+        raise ValueError('Data has to be indexed by a pandas.DatetimeIndex.')
 
     # create the percentiles
     if isinstance(percentiles, int):
@@ -211,7 +240,8 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
     # build percentiles
     if percentiles is not None:
         for q in percentiles:
-            df['q%d' % q] = x.groupby(idx).aggregate(lambda v: np.nanpercentile(v, q))
+            df['q%d' % q] = x.groupby(idx).aggregate(
+                lambda v: np.nanpercentile(v, q))
 
     # handle normalize
     if normalize:
@@ -230,6 +260,7 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
 
     # some defaults
     kwargs.setdefault('cmap', 'Blues')
+    kwargs.setdefault('color', None)
     kwargs.setdefault('lw', 3)
     kwargs.setdefault('linestyle', '-')
 
@@ -244,11 +275,15 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
 
         # plot
         for i in range(len(df.columns) - 2, 1, -1):
-            ax.fill_between(df.index, df.iloc[:, i], df.iloc[:, i - 1], interpolate=True,
-                            color=cmap[i - 1])
+            ax.fill_between(df.index, df.iloc[:, i], df.iloc[:, i - 1],
+                            interpolate=True, color=cmap[i - 1])
 
     # plot the main aggregate
-    ax.plot(df.index, df.iloc[:, 0], linestyle=kwargs['linestyle'], color=cm(0.0), lw=kwargs['lw'])
+    c = kwargs.get('color')
+    if c is None:
+        c = cm(0.0)
+    ax.plot(df.index, df.iloc[:, 0], linestyle=kwargs['linestyle'],
+            color=c, lw=kwargs['lw'])
     ax.set_xlim(0, 12)
     plt.xticks(df.index, MONTHS, rotation=45)
 
