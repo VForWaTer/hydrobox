@@ -31,6 +31,9 @@ Generate the data
 
 .. ipython:: python
 
+    # use the ggplot plotting style
+    import matplotlib as mpl
+    mpl.style.use('ggplot')
     from hydrobox import toolbox
     # Step 1:
     series = toolbox.io.timeseries_from_distribution(
@@ -125,9 +128,15 @@ The workflow for the :ref:`regime function <reference_regime>` is very
 similar to the one presented in the :ref:`flow duration curve <example_fdc>`
 section.
 
-A random discharge time series will be generated and directly passed to the
-regime function. Additionally, different ways of adjusting the plot output
-will be presented.
+In this example, we will use real world data. As the hydrobox is build on top
+of numpy and pandas, we can easily use the great input tools provided by
+pandas. This example will load a discharge time series from Hofkirchen in
+Germany, gauging the Danube river. The data is provided by
+`Gewässerkundlicher Dienst Bayern`_ under a CC BY 4.0 license.
+Therefore, this example will also illustrate, how you can combine pandas and
+hydrobox to produce nice regime plots with just a few lines of code.
+
+.. _Gewässerkundlicher Dienst Bayern: https://gkd.bayern.de
 
 .. note::
 
@@ -135,23 +144,43 @@ will be presented.
     Python environment. If you are using e.g. a WPS server calling the
     tools, be sure to capture the output.
 
-Generate the data
------------------
+Load the data using pandas
+--------------------------
 
 .. ipython:: python
 
+    # some imports
     from hydrobox import toolbox
+    import pandas as pd
     # Step 1:
-    series = toolbox.io.timeseries_from_distribution(
-        distribution='gamma',
-        distribution_args=[2, 0.5],  # [location, scale]
-        start='200001010000',        # start date
-        end='201001010000',          # end date
-        freq='15min',                # temporal resolution
-        size=None,                   # set to None, for inferring
-        seed=42                      # Set a random seed
+    df = pd.read_csv('./data/discharge_hofkirchen.csv',
+        skiprows=10,            # meta data header, skip this
+        sep=';',                # the cell separator
+        decimal=',',             # german-style decimal sign
+        index_col='Datum',      # the 'date' column
+        parse_dates=[0]         # transform to DatetimeIndex
     )
+    # use only the 'Mittelwert' (mean) column
+    series = df.Mittelwert
     print(series.head())
+
+.. note::
+
+    The data was downloaded from: `Datendownload GKD`_ and is published under
+    CC BY 4.0 license. If you are not using a german OS, note that the file
+    encoding is ISO 8859-1 and you might have to remove the special german
+    signs from the header before converting to UTF-8.
+
+
+.. _Datendownload GKD: https://gkd.bayern.de/fluesse/download/index.php?thema=gkd&rubrik=fluesse&produkt=abfluss&gknr=0&msnr=10088003
+
+.. seealso::
+
+    More information on the :func:`read_csv function <pandas:pandas.read_csv>`
+     is provided in the `pandas documentation`_.
+
+
+.. _pandas documentation: https://pandas.pydata.org/pandas-docs/stable
 
 Output the regime
 -----------------
@@ -170,9 +199,6 @@ Plotting
 
 .. ipython:: python
 
-    # use the ggplot plotting style
-    import matplotlib as mpl
-    mpl.style.use('ggplot')
     @savefig examples_regime.png width=6in
     toolbox.regime(series)
 
@@ -188,6 +214,36 @@ Plotting
 
     @savefig examples_regime2.png width=6in
     toolbox.regime(series, color='#ffab7f')
+
+Using percentiles
+-----------------
+
+The plot shown above is nice, but the tool is way more powerful. Using the
+``percentiles`` keyword, we can either specify a number of percentiles or
+pass custom percentile edges.
+
+.. ipython:: python
+
+    @savefig examples_regime_percentile.png width=6in
+    toolbox.regime(series, percentiles=10);
+
+.. ipython:: python
+
+    @savefig examples_regime_percentile2.png width=6in
+    toolbox.regime(series, percentiles=[25, 75, 100], color='#223a5e');
+
+Adjusting the plot
+------------------
+
+Furthermore, the regime function can normalize the monthly aggregates to the
+overall aggregate. The function used for aggregation can also be changed. The
+following example will output monthly mean values over median values and
+normalize them to the MQ (overall mean).
+
+.. ipython:: python
+
+    @savefig examples_regime_normalize.png width=6in
+    toolbox.regime(series, agg='nanmean', normalize=True, color='#223a5e')
 
 Reference
 ---------
