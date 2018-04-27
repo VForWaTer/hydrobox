@@ -118,6 +118,80 @@ We encourage you to use this decorator especially for checking the input data
 to be of type :class:`numpy:numpy.ndarray` :class:`pandas:pandas.DataFrame`
 and :class:`pandas:pandas.Series`.
 
-.. warning::
 
-    To be continued....
+Test your tool
+~~~~~~~~~~~~~~
+
+Although the code coverage of this project is not yet really good, it would be nice not to drop
+it any further. A good code coverage needs unit tests. Beyond code coverage, unit tests will help
+us to detect whenever our contribution breaks existing code. And last but not least a unit test
+will help yourself to build more reliable code.
+In a nutshell, it would be really helpful if you produce unit tests for your code. More
+information on unit tests is given in the :ref:`Add / Improve unittests <contrib_unittests>`
+section. Some useful links to get you stated with unittests in Python can be found below.
+
+.. seealso::
+
+    - `unittests module reference`_
+    - `Unit Test Wikipedia page`_
+    - :ref:`Add / Improve unittests <contrib_unittests>`
+
+.. _unittests module reference: https://docs.python.org/3/library/unittest.html
+.. _Unit Test Wikipedia page: https://en.wikipedia.org/wiki/Unit_testing
+
+
+
+Document your tool
+~~~~~~~~~~~~~~~~~~
+
+In order to make it possible for others to use your tool, a good, comprehensive documentation is
+needed. As a first step, you sould always add a docstring to your function. For hydrobox, please
+use the `numpydoc`_ docstring format. More information can also be found in the
+:ref:`Add / Improve docstrings <contrib_docstrings>` section.
+
+.. seealso::
+
+    - `numpydoc reference site <numpydoc>`_
+    -  :ref:`Add / Improve docstrings <contrib_docstrings>`
+
+Produce examples
+~~~~~~~~~~~~~~~~
+
+Sometimes a docstring is not enough to understand a Tool. Although short examples, references and
+ formulas can go into numpydoc docstring formats, you might want to offer different examples
+ covering the whole bandwidth of your tool. Then you should produce some examples into this
+ documentation. You can refer to the :ref:`Examples <contrib_examples>` section for more
+ information.
+
+.. seealso::
+
+    - :ref:`Examples <contrib_examples>`
+
+.. _contrib_unittests:
+
+Add / improve unittests
+=======================
+
+.. todo::
+
+    write this section
+
+
+.. _contrib_docstrings:
+
+Add / improve docstrings
+========================
+
+.. todo::
+
+    write this section
+
+
+.. _contrib_examples:
+
+Enhance the Examples
+====================
+
+.. todo::
+
+    write this section
