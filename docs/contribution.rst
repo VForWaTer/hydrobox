@@ -167,24 +167,142 @@ Sometimes a docstring is not enough to understand a Tool. Although short example
 
     - :ref:`Examples <contrib_examples>`
 
+Pull Request
+~~~~~~~~~~~~
+
+Once your finished with your implementations, create a pull request on GitHub.
+More info in the :ref:`Pull Request <contrib_pull>` section.
+
 .. _contrib_unittests:
 
 Add / improve unittests
 =======================
 
-.. todo::
+.. important::
 
-    write this section
+    If you are not familiar with unit testing in general, please refer to
+    https://en.wikipedia.org/wiki/Unit_testing. If you are not familiar with
+    the ``unittests`` module. please refer to
+    https://docs.python.org/3/library/unittest.html
 
+Unit tests are important as they make your code much more reliable and
+reusable for other users. The basic idea behind a unit test is to test any
+possible input and output to your tool against the expected behavior. For
+this you have to set up a test case, run the scenario and compare it to what
+you expected. In case some modules and packages you rely on change and break
+your code, the unit test will notice this and fail. I am personally using
+unit tests whenever I try to improve my code, this way I can be sure, that I
+did not optimize any functionality away (and that happens a lot...).
+
+For creating a unit test you need to define a class. Each method of this
+class represents a test. There are different ways of implementing unit tests,
+either one test method to test a whole tool or one test method per single
+check you want to perform. In hydrobox, we decided to use one TestCase class
+for each method and try to break down each check into a single test method.
+The example below should illustrate this behavior.
+
+.. code-block:: python
+    :linenos:
+
+    import unittest
+    import pandas as pd
+    import from_csv         # import your tool here
+
+    class TestFromCsv(unittest.TestCase):
+        def test_row_count(self):
+            df = from_csv('file_of_known_size.txt')
+            self.assertEqual(len(df), 450)
+
+        def test_col_count(self):
+            df = from_csv('file_of_known_size.txt')
+            self.assertEqual(len(df.columns), 5)
+
+        def test_change_sep(self):
+            """
+            change the separator to a sign that does not appear
+            in the file. then there sould be only one column.
+            """
+            df = from_csv('file_of_known_size.txt', sep="|")
+            self.assertEqual(len(df.columns)), 1)
+
+    if __name__=='__main__':
+        unittest.main()
+
+
+This is a very basic example that does check three different things. It uses
+our new tool to load a file of known content into the variable ``df``.
 
 .. _contrib_docstrings:
 
 Add / improve docstrings
 ========================
 
-.. todo::
+.. important::
 
-    write this section
+    If you are not familiar with the numpydoc docstring format, please refer to
+    http://numpydoc.readthedocs.io/en/latest/format.html.
+
+The most important parts of a numpydoc docstring are shown in the example below. Please make
+sure, that your docstring always contains the `main description`, `parameters` and `returns`.
+
+.. code-block:: python
+    :linenos:
+
+    @accept(path=(str, TextIOWrapper), sep=str)
+    def from_csv(path, sep=','):
+    r"""short descriptive tile
+
+    After a short title, give a few sentences of explanation. What does this
+    Method do and how is it intended to be used?
+
+    Parameters
+    ----------
+    path : str, TextIOWrapper
+        The parameters can also get a full description about their meaning
+        possible values. Please be as extensive as necessary here.
+        Note the whitespace between the parameter name and the (list) of
+        accepted types.
+    sep : str, optional
+        In case an argument is optional, you can indicate this by the
+        optional keyword after the type.
+
+    Returns
+    -------
+    pandas.DataFrame
+
+    Notes
+    -----
+
+    The first description at the top should be a rather technical description.
+    The optional Notes section can be added and used to inform the user about
+    the background of the function or further readings.
+    For this purpose you can also include references[1]_ into your Notes.
+    In the documentations, these will be rendered in the Reference section.
+
+    And last but not least you can also input some math:
+
+    .. math:: a^2 + b^2 = c^2
+
+    References
+    ----------
+
+    ..  [1] Python, M., Chapman, G., Cleese, J., Gilliam, T., Jones, T.,
+        Idle, E., & Palin, M. (2000). the Holy Grail. EMI Records.
+
+    Examples
+    --------
+
+    >>> from_csv('file.txt').size
+    (220201, 5)
+
+    """
+    ...
+
+
+.. note::
+
+    You should only add short and descriptive examples into the docstring itself. Make use of the
+    :ref:`Examples section <contrib_examples>` of this documentation.
 
 
 .. _contrib_examples:
@@ -195,3 +313,30 @@ Enhance the Examples
 .. todo::
 
     write this section
+
+
+.. _contrib_pull:
+
+Create a Pull Request
+=====================
+
+.. important::
+
+    If you are not familiar with Pull Requests, please refer to
+    https://help.github.com/articles/about-pull-requests.
+
+The best scenario for a pull request would be one that includes the new tool / enhancement, a
+proper docstring, unittests and a new example. However, we will also accept a pull request
+including only a tool and a docstring. In these cases, please provide a proper description in the
+pull request message in order to make it possible for others to add missing content.
+
+Beside a good description, a descriptive title is vital. Please state what you actually want to
+contribute in the pull request title. For the examples produced in this guide a descriptive title
+would be something like: `Added from_csv tool for reading files`.
+
+.. note::
+
+    If your contribution does only contain minor changes like PEP8 fixes, typos and small
+    bugfixes, you can of course pull request these changes without examples and unittests.
+
+And finally, I am really looking forward to your contributions and thanks in advance!

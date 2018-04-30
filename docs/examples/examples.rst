@@ -2,9 +2,6 @@
 Examples
 ========
 
-Examples Section
-================
-
 .. important::
 
     These examples shall help you getting started with most of the functionality.
@@ -18,4 +15,5 @@ Examples Section
     :maxdepth: 3
 
     discharge
+    signal
 

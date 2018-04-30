@@ -1,2 +1,2 @@
 from .catchment import TestFlowDurationCurve, TestRegime
-from .indices import TestIndices
+from .indices import TestRichardBaker

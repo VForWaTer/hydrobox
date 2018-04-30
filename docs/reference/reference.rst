@@ -14,3 +14,4 @@ Reference
     preprocessing
     stats
     discharge
+    signal
