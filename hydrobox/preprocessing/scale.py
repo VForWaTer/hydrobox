@@ -12,15 +12,16 @@ import pandas as pd
 from hydrobox.utils.decorators import accept
 
 
-@accept(x=(pd.Series, pd.DataFrame), by=str, func=(str, 'callable'))
-def aggregate(x, by, func='nanmean'):
+@accept(x=(pd.Series, pd.DataFrame), by=(str, 'None'), func=(str, 'callable'))
+def aggregate(x, by, func='mean'):
     """Time series aggregation
 
     This function version will only operate on a single ``pandas.Series`` or
-    ``pandas.DataFrame`` instance. It has to be indexed by a `pandas.DatetimeIndex`. The input
-    data will be aggregated to the given frequency by passing a `pandas.Grouper` conform string
-    argument specifying the desired period like: '1M' for one month or '3Y-Sep' for three years
-    starting at the first of October.
+    ``pandas.DataFrame`` instance. It has to be indexed by a
+    `pandas.DatetimeIndex`. The input data will be aggregated to the given
+    frequency by passing a `pandas.Grouper` conform string argument
+    specifying  the desired period like: '1M' for one month or '3Y-Sep' for
+    three years     starting at the first of October.
 
 
     Parameters
@@ -28,11 +29,15 @@ def aggregate(x, by, func='nanmean'):
     x: ``pandas.Series``, ``pandas.DataFrame``
         The input data, will be aggregated over the index.
     by : string
-        Specifies the desired temporal resolution. Will be passed as ``freq`` argument of a
-        ``pandas.Grouper`` object for grouping the data into the new resolution.
+        Specifies the desired temporal resolution. Will be passed as
+        ``freq`` argument of a ``pandas.Grouper`` object for grouping the
+        data into the new resolution.
+        If by is ``None``, the whole Series will be aggregated to only one
+        value. The same applies to ``by='all'``.
     func : string
-        Function identifier used for aggregation. Has to be importable from ``numpy``. The
-        function must accept n input values and aggregate them to only a single one.
+        Function identifier used for aggregation. Has to be importable from
+        ``numpy``. The function must accept n input values and aggregate them
+        to only a single one.
 
     Returns
     -------
@@ -43,8 +48,12 @@ def aggregate(x, by, func='nanmean'):
 
     """
     # check for being a time series
-    if not isinstance(x.index, pd.DatetimeIndex):
-        raise ValueError('The data has to be indexed by a pandas.DatetimeIndex.')
+    if not isinstance(x.index, pd.DatetimeIndex) \
+            and not (by is None or by == 'all'):
+        raise ValueError('The data has to be indexed by a DatetimeIndex.')
+
+    if by is not None and by == 'all':
+        by = None
 
     # get the function
     if callable(func):
@@ -53,10 +62,14 @@ def aggregate(x, by, func='nanmean'):
         try:
             f = getattr(np, func)
         except AttributeError:
-            raise ValueError('The function %s cannot be imported. the aggregation function has \
-                             to be importable from numpy.' % func)
+            raise ValueError('The function %s cannot be imported. the \
+                             aggregation function has to be importable \
+                             from numpy.' % func)
 
-    return x.groupby(pd.Grouper(freq=by)).aggregate(f)
+    if by is None:
+        return x.aggregate(f)
+    else:
+        return x.groupby(pd.Grouper(freq=by)).aggregate(f)
 
 
 @accept(
@@ -66,25 +79,28 @@ def aggregate(x, by, func='nanmean'):
 def cut(x, start, stop):
     """Truncate Time series
 
-    Truncates a ``pandas.Series`` or ``pandas.DataFrame`` to the given period. The start and
-    stop parameter need to be either a string or a ``datetime.datetime``, which will then be
-    converted. Returns the truncated time series.
+    Truncates a ``pandas.Series`` or ``pandas.DataFrame`` to the given
+    period.  The start and stop parameter need to be either a string or a
+    ``datetime.datetime``, which will then be converted. Returns the
+    truncated time series.
 
     Parameters
     ----------
     x : ``pandas.Series``, ``pandas.DataFrame``
         The input data, will be truncated
     start : string, datetime
-        Begin of truncation. Can be a ``datetime.datetime`` or a string. If a string is passed,
-        it has to use the format 'YYYYMMDDhhmmss', where the time componen 'hhmmss' can be omitted.
+        Begin of truncation. Can be a ``datetime.datetime`` or a string.
+        If a string is passed, it has to use the format 'YYYYMMDDhhmmss',
+        where the time componen 'hhmmss' can be omitted.
     stop : string, datetime,
-        End of truncation. Can be a ``datetime.datetime`` or a string. If a string is passed,
-        it has to use the format 'YYYYMMDDhhmmss', where the time componen 'hhmmss' can be omitted.
+        End of truncation. Can be a ``datetime.datetime`` or a string.
+        If a string is passed, it has to use the format 'YYYYMMDDhhmmss',
+        where the time componen 'hhmmss' can be omitted.
 
     """
     # check for being a time series
     if not isinstance(x.index, pd.DatetimeIndex):
-        raise ValueError('The data has to be indexed by a pandas.DatetimeIndex.')
+        raise ValueError('The data has to be indexed by a DatetimeIndex.')
 
     if isinstance(start, datetime):
         start = start.strftime('%Y%m%d%H%M%S')

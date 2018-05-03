@@ -107,6 +107,7 @@ be on :pycode:`NoneType` or a :pycode:`callable`, use the two literals
     :linenos:
 
     from io import TextIOWrapper
+
     @accept(path=(str, TextIOWrapper), sep=str)
     def from_csv(path, sep=','):
         ...
