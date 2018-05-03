@@ -20,7 +20,7 @@ Set up a test case
 
 The example below will show the idea behind the
 :ref:`simplify<reference_simplify>` method of the ``singal`` submodule. At
-forst some imports.
+first some imports.
 
 .. ipython:: python
 
