@@ -15,7 +15,8 @@ from hydrobox.utils.decorators import accept
         start=(str, datetime, 'None'),
         end=(str, datetime, 'None'),
         freq=(str, 'None'))
-def timeseries_from_distribution(distribution='gamma', distribution_args=[10, 2], size=10, seed=None,
+def timeseries_from_distribution(distribution='gamma',
+                                 distribution_args=[10, 2], size=10, seed=None,
                                  start='now', end=None, freq='D'):
     """Generate a random time series
 
