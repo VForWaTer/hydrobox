@@ -11,9 +11,9 @@ Simplifying a Signal
 
 Whenever you seek to apply a tool on your data that will operate on each
 value and this tool is time and / or resource consuming, it might be a good
-idea to operate on as little values as possible. Simply removing duplicated
-values from a signal is not always working. Think of a discharge time series
-where you want to calculate a index that is depending on a previous state.
+idea to operate on as few values as possible. Simply removing duplicated
+values is not always the best approach. Think of a discharge time series
+where you want to calculate an index that depends on a previous state.
 
 Set up a test case
 ------------------
@@ -43,7 +43,7 @@ And now setup and plot the test signal.
 Handling replicas
 -----------------
 
-There are a number of replications, that we want to get rid of.
+There are a number of replications. We want to get rid of those.
 
 .. ipython:: python
 
@@ -52,24 +52,24 @@ There are a number of replications, that we want to get rid of.
     plt.plot(simplify(x, flatten=False), '.--r');
 
 Look at the amount of markers in both plots, where the signal gave a constant
- value. The replicas got dropped off from the signal.
+ value. The replicas got dropped from the signal.
 
 Handling sensor precision noise
 -------------------------------
 
-So far, that did only remove subsequent duplicates in value. The other signal
+So far, this only removed subsequent value duplicates. The other signal
 information this method can simplify is the constant repetition of two values.
-This usually happens in environmental sensors either at constant conditions
-or at really slow state changes. Then the signal can alternate between two
-states at its sensor precision. These recordings can be evened out by setting
-the ``flatten`` attribute to True.
+This usually happens in environmental sensors either in constant conditions
+or during really slow state changes. In these cases the signal can alternate
+between two states within the sensor resolution. These recordings can be evened
+out by setting the ``flatten`` attribute to True.
 
 .. ipython:: python
 
     @savefig examples_simplified_sample2.png width=6in
     plt.plot(simplify(x, flatten=True), '.--r');
 
-Of course, the index information got completely lost. In this example the
+Of course, the index information was completely lost. In this example the
 x-axis is just counting the occurrences of values. In case you need the index
 information for further analysis, you have to extract the index and preserve
 it, before calling the simplify method.
@@ -84,4 +84,4 @@ it, before calling the simplify method.
 
     Keep in mind that two very strong assumptions are underlying this method.
     It does change the signal dramatically. Ensuring that the sensor noise
-    assumption is correct, is completely up to you.
+    assumption is correct is completely up to you.
