@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime as dt
 
 import pandas as pd
 from pandas.testing import assert_series_equal, assert_index_equal
@@ -31,37 +32,85 @@ class TestTimeSeriesFromDistribution(unittest.TestCase):
         pass
 
     def test_default_args(self):
-        assert_series_equal(timeseries_from_distribution(seed=42, start='200001011130'),
-                            DEFAULT_ARGS, check_less_precise=6)
+        assert_series_equal(
+            timeseries_from_distribution(seed=42, start='200001011130'),
+            DEFAULT_ARGS, check_less_precise=6
+        )
 
     def test_normal_distribution(self):
-        assert_series_equal(timeseries_from_distribution(distribution='normal', seed=42, start='200001011130'),
-                            NORMAL_DISTRIBUTION, check_less_precise=6)
+        assert_series_equal(
+            timeseries_from_distribution(distribution='normal',
+                                         seed=42, start='200001011130'),
+            NORMAL_DISTRIBUTION, check_less_precise=6
+        )
 
     def test_distribution_args(self):
-        assert_series_equal(timeseries_from_distribution(distribution='normal',distribution_args=[3, 0.5], seed=42,
-                                                         start='200001011130'),
-                            DISTRIBUTION_ARGS, check_less_precise=6)
+        assert_series_equal(
+            timeseries_from_distribution(
+                distribution='normal',
+                distribution_args=[3, 0.5],
+                seed=42,
+                start='200001011130'),
+            DISTRIBUTION_ARGS, check_less_precise=6
+        )
 
     def test_size(self):
-        assert_series_equal(timeseries_from_distribution(seed=42, start='200001011130', size=5),
-                            DEFAULT_ARGS[:5], check_less_precise=6)
+        assert_series_equal(
+            timeseries_from_distribution(seed=42, start='200001011130', size=5),
+            DEFAULT_ARGS[:5], check_less_precise=6
+        )
 
     def test_seed(self):
         assert_series_equal(timeseries_from_distribution(seed=2409, start='200001011130'),
                             SEED_2409, check_less_precise=6)
 
     def test_start(self):
-        assert_index_equal(timeseries_from_distribution(start='20130924').index,
-                           pd.date_range(start='20130924', periods=10, freq='D'))
+        assert_index_equal(
+            timeseries_from_distribution(start='20130924').index,
+            pd.date_range(start='20130924', periods=10, freq='D')
+        )
+
+    def test_start_datetime(self):
+        assert_index_equal(
+            timeseries_from_distribution(start=dt(2013, 9, 24)).index,
+            pd.date_range(start='20130924', periods=10, freq='D')
+        )
+
+    def test_start_now(self):
+        assert_index_equal(
+            timeseries_from_distribution(start='now').index,
+            pd.date_range(dt.now().strftime('%Y%m%d%H%M%S'),
+                          periods=10, freq='D')
+        )
 
     def test_end(self):
-        assert_index_equal(timeseries_from_distribution(start=None, end='20130924').index,
-                           pd.date_range(end='20130924', periods=10, freq='D'))
+        assert_index_equal(
+            timeseries_from_distribution(start=None, end='20130924').index,
+            pd.date_range(end='20130924', periods=10, freq='D')
+        )
+
+    def test_end_datetime(self):
+        assert_index_equal(
+            timeseries_from_distribution(start=None, end=dt(2013, 9, 24)).index,
+            pd.date_range(end='20130924', periods=10, freq='D')
+        )
+
+    def test_end_now(self):
+        assert_index_equal(
+            timeseries_from_distribution(start=None, end='now').index,
+            pd.date_range(end=dt.now().strftime('%Y%m%d%H%M%S'),
+                          periods=10, freq='D')
+        )
 
     def test_freq(self):
-        assert_index_equal(timeseries_from_distribution(start='20130924', freq='3H').index,
-                           pd.date_range(start='20130924', periods=10, freq='3H'))
+        assert_index_equal(
+            timeseries_from_distribution(start='20130924', freq='3H').index,
+            pd.date_range(start='20130924', periods=10, freq='3H')
+        )
+
+    def test_import_unkown_func(self):
+        with self.assertRaises(ValueError):
+            timeseries_from_distribution(distribution='not_importable_func')
 
 
 if __name__ == '__main__':

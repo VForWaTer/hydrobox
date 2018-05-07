@@ -1,2 +1,2 @@
 from .union import TestMerge
-from .scale import TestAggregate
+from .scale import TestAggregate, TestCutPeriod

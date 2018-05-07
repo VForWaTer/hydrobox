@@ -76,7 +76,7 @@ def aggregate(x, by, func='mean'):
     x=(pd.Series, pd.DataFrame),
     start=(str, datetime, 'None'),
     stop=(str, datetime, 'None'))
-def cut(x, start, stop):
+def cut_period(x, start, stop):
     """Truncate Time series
 
     Truncates a ``pandas.Series`` or ``pandas.DataFrame`` to the given

@@ -11,8 +11,8 @@ aggregation
 -----------
 .. autofunction:: hydrobox.preprocessing.scale.aggregate
 
-.. _reference_cut:
+.. _reference_cut_period:
 
-cut
----
-.. autofunction:: hydrobox.preprocessing.scale.cut
+cut_period
+----------
+.. autofunction:: hydrobox.preprocessing.scale.cut_period
