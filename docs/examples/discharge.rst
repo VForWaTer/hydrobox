@@ -77,8 +77,8 @@ useful when the output is directed into another analysis function or is used ins
 plotting and styling can be adapted to the use-case.
 
 However, in case you are using hydrobox in a pure Python environment, most tools can be directly
- used for plotting. At the current stage ``matplotlib`` is the only plotting
- possibility.
+used for plotting. At the current stage ``matplotlib`` is the only plotting
+possibility.
 
 Plot the result
 ---------------

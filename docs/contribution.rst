@@ -159,10 +159,10 @@ Produce examples
 ~~~~~~~~~~~~~~~~
 
 Sometimes a docstring is not enough to understand a tool. Although short examples, references and
- formulas can go into numpydoc docstring formats, you might want to offer different examples
- covering the whole bandwidth of your tool. Then you should produce some examples for this
- documentation. You can refer to the :ref:`Examples <contrib_examples>` section for more
- information.
+formulas can go into numpydoc docstring formats, you might want to offer different examples
+covering the whole bandwidth of your tool. Then you should produce some examples for this
+documentation. You can refer to the :ref:`Examples <contrib_examples>` section for more
+information.
 
 .. seealso::
 
