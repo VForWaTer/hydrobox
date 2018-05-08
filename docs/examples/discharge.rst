@@ -14,17 +14,17 @@ FDC from random data
 Workflow
 --------
 
-The workflow to be presented in this example will generate some random data and apply two
-processing  steps. This shall illustrate the general idea. All tools are designed to fit
-seamlessly  into automated processing environments like a WPS server or other workflow engines.
+The workflow in this example will generate some random data and applies two
+processing  steps to illustrate the general idea. All tools are designed to fit
+seamlessly  into automated processing environments like WPS servers or other workflow engines.
 
 
-The workflow to be presented:
+The workflow in this example:
 
-  #. generate a ten year random discharge time series from a gamma distribution
-  #. aggregate the data to daily maximum values
-  #. create a flow duration curve
-  #. use python to visualize the flow duration curve
+  #. generates a ten year random discharge time series from a gamma distribution
+  #. aggregates the data to daily maximum values
+  #. creates a flow duration curve
+  #. uses python to visualize the flow duration curve
 
 Generate the data
 -----------------
@@ -58,7 +58,7 @@ Apply the aggregation
     print(series_daily.head())
 
 
-Calaculate the FDC
+Calculate the flow duration curve (FDC)
 ------------------
 
 .. ipython:: python
@@ -73,12 +73,11 @@ Calaculate the FDC
 
 The first output line shows the first five exceeding probabilities, while the second line shows
 the last five values. The output as :py:class:`numpy.ndarray` is especially
-useful when the output shall be
-directed into another analysis function or is used inside a workflow engine. This way the
-plotting and styling can be adepted to the use-case.
+useful when the output is directed into another analysis function or is used inside a workflow engine. This way the
+plotting and styling can be adapted to the use-case.
 
-However, in case you are using the tools in a pure Python environment, most tools can be directly
- used for plotting. At the current stage, ``matplotlib`` is the only plotting
+However, in case you are using hydrobox in a pure Python environment, most tools can be directly
+ used for plotting. At the current stage ``matplotlib`` is the only plotting
  possibility.
 
 Plot the result
@@ -91,7 +90,7 @@ Plot the result
     toolbox.flow_duration_curve(series_daily.values);
 
 
-With most plotting functions, it is also possbile to embed the plots into existing figures in
+With most plotting functions, it is also possible to embed the plots into existing figures in
 order to fit seamlessly into reports etc.
 
 .. ipython:: python
@@ -133,7 +132,7 @@ of numpy and pandas, we can easily use the great input tools provided by
 pandas. This example will load a discharge time series from Hofkirchen in
 Germany, gauging the Danube river. The data is provided by
 `Gewässerkundlicher Dienst Bayern`_ under a CC BY 4.0 license.
-Therefore, this example will also illustrate, how you can combine pandas and
+Therefore, this example will also illustrate how you can combine pandas and
 hydrobox to produce nice regime plots with just a few lines of code.
 
 .. _Gewässerkundlicher Dienst Bayern: https://gkd.bayern.de
@@ -192,7 +191,7 @@ In order to calculate the regime, without a plot, we can set ``plot`` to `None`.
     regime = toolbox.regime(series, plot=False)
     print(regime)
 
-These plain numpy array can be used in any further custom workflow or plotting.
+These plain numpy arrays can be used in any further custom workflow or plotting.
 
 Plotting
 --------

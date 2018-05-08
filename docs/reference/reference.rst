@@ -4,8 +4,8 @@ Reference
 
 .. note::
 
-    The reference section is still under development, as the toolbox itself.
-    It may not correctly reflect the toolbox structure at any time.
+    The reference section is still under development, as is the toolbox itself.
+    It may not reflect the toolbox structure correctly at any time.
 
 .. toctree::
     :maxdepth: 3

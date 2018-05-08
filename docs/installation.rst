@@ -21,7 +21,7 @@ be installed using pip:
 GitHub
 ------
 
-There might be a more recent version on GitHub available. This can be installed like:
+There might be a more recent version on GitHub available. It can be installed as follows:
 
 .. code-block:: bash
 
@@ -29,4 +29,3 @@ There might be a more recent version on GitHub available. This can be installed 
     cd hydrobox
     pip install -r requirements.txt
     pip install -e .
-

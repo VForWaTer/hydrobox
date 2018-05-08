@@ -11,13 +11,13 @@ Contribution Guide
 How to Contribute
 =================
 
-There are several ways, how you can contribute to hydrobox. All contributions
-shall make use of the Fork / Pull request workflow in the `GitHub repository`_.
+There are several ways how you can contribute to hydrobox. All contributions
+should make use of the Fork / Pull request workflow in the `GitHub repository`_.
 More information on pull requests can be found on the `GitHub About pull requests`_
 page.
 
     #. Add new tools to the toolbox
-    #. Improve / Add unittest to increase code coverage
+    #. Improve / Add unit tests to increase code coverage
     #. Improve / Add docstrings on existing functions
     #. Add more examples to the documentation
 
@@ -38,13 +38,13 @@ Add Tools to the Toolbox
         #. Pull request your fork back into the main repository
 
 The idea behind hydrobox is to be used on top of numpy, scipy and pandas.
-This implies usage the data types defined in these libraries whenever possible.
+This implies using the data types defined in these libraries whenever possible.
 The main purpose of hydrobox is to save hydrologists from reproducing their
-codes in every single project. Therefore a hydrobox tool shall:
+codes in every single project. Therefore a hydrobox tool should:
 
     #. combine analysis steps belonging together into one function, while
     #. separating preprocessing from analysis
-    #. be helpful for other hydrologists
+    #. be helpful to other hydrologists
     #. output common python, numpy or pandas datatypes
 
 
@@ -58,9 +58,9 @@ Fork and structure
 
 Once you forked the project, place a new file in the appropriate module or
 add a new one. Once your function has been added, import your function in the
-``hydrobox.toolbox`` file Please use an expressive name for your function. It
+``hydrobox.toolbox`` file. Please use an meaningful name for your function. It
 should be clear what the
-function does. . In some cases tool functions are tool specific to
+function does. In some cases tool functions are tool specific to
 make them available at the global ``hydrobox.toolbox`` scope. Then the
 submodule itself will be imported in the toolbox and you do not need to
 adjust the imports. One example is the ``io`` submodule.
@@ -78,9 +78,9 @@ will go into a file ``text.py`` in the ``hydrobox.io`` submodule:
         return pd.from_csv(path, sep=sep)
 
 
-Now, import this function in the ``__init__`` of ``hydrobox.io``. If your
-method shall be available in the global scope, import it in
-``hydrobox.toolbox``, as well.
+Now, import this function in the ``__init__`` of ``hydrobox.io``. If you
+want your method to be available in the global scope, import it in
+``hydrobox.toolbox`` as well.
 
 .. important::
 
@@ -114,7 +114,7 @@ be on :pycode:`NoneType` or a :pycode:`callable`, use the two literals
 
 In this example, the :pycode:`path` argument can be a string or a file pointer,
 :pycode:`sep` has to be a string. Thus, there is no need to check the user
-input in your tool, as the decorator already did this for you.
+input in your tool as the decorator already did this for you.
 We encourage you to use this decorator especially for checking the input data
 to be of type :class:`numpy:numpy.ndarray` :class:`pandas:pandas.DataFrame`
 and :class:`pandas:pandas.Series`.
@@ -126,16 +126,16 @@ Test your tool
 Although the code coverage of this project is not yet really good, it would be nice not to drop
 it any further. A good code coverage needs unit tests. Beyond code coverage, unit tests will help
 us to detect whenever our contribution breaks existing code. And last but not least a unit test
-will help yourself to build more reliable code.
+will help you to build more reliable code.
 In a nutshell, it would be really helpful if you produce unit tests for your code. More
-information on unit tests is given in the :ref:`Add / Improve unittests <contrib_unittests>`
-section. Some useful links to get you stated with unittests in Python can be found below.
+information on unit tests is given in the :ref:`Add / Improve unit tests <contrib_unittests>`
+section. Some useful links to get you stated with unit tests in Python can be found below.
 
 .. seealso::
 
-    - `unittests module reference`_
+    - `unit tests module reference`_
     - `Unit Test Wikipedia page`_
-    - :ref:`Add / Improve unittests <contrib_unittests>`
+    - :ref:`Add / Improve unit tests <contrib_unittests>`
 
 .. _unittests module reference: https://docs.python.org/3/library/unittest.html
 .. _Unit Test Wikipedia page: https://en.wikipedia.org/wiki/Unit_testing
@@ -146,7 +146,7 @@ Document your tool
 ~~~~~~~~~~~~~~~~~~
 
 In order to make it possible for others to use your tool, a good, comprehensive documentation is
-needed. As a first step, you sould always add a docstring to your function. For hydrobox, please
+needed. As a first step, you should always add a docstring to your function. For hydrobox, please
 use the `numpydoc`_ docstring format. More information can also be found in the
 :ref:`Add / Improve docstrings <contrib_docstrings>` section.
 
@@ -158,9 +158,9 @@ use the `numpydoc`_ docstring format. More information can also be found in the
 Produce examples
 ~~~~~~~~~~~~~~~~
 
-Sometimes a docstring is not enough to understand a Tool. Although short examples, references and
+Sometimes a docstring is not enough to understand a tool. Although short examples, references and
  formulas can go into numpydoc docstring formats, you might want to offer different examples
- covering the whole bandwidth of your tool. Then you should produce some examples into this
+ covering the whole bandwidth of your tool. Then you should produce some examples for this
  documentation. You can refer to the :ref:`Examples <contrib_examples>` section for more
  information.
 
@@ -171,12 +171,12 @@ Sometimes a docstring is not enough to understand a Tool. Although short example
 Pull Request
 ~~~~~~~~~~~~
 
-Once your finished with your implementations, create a pull request on GitHub.
+Once your have finished with your implementations, create a pull request on GitHub.
 More info in the :ref:`Pull Request <contrib_pull>` section.
 
 .. _contrib_unittests:
 
-Add / improve unittests
+Add / improve unit tests
 =======================
 
 .. important::
@@ -190,9 +190,9 @@ Unit tests are important as they make your code much more reliable and
 reusable for other users. The basic idea behind a unit test is to test any
 possible input and output to your tool against the expected behavior. For
 this you have to set up a test case, run the scenario and compare it to what
-you expected. In case some modules and packages you rely on change and break
-your code, the unit test will notice this and fail. I am personally using
-unit tests whenever I try to improve my code, this way I can be sure, that I
+you expected. When some modules and packages which you rely on change and break
+your code, the unit test will notice and fail. I am personally using
+unit tests whenever I try to improve my code, this way I can be sure that I
 did not optimize any functionality away (and that happens a lot...).
 
 For creating a unit test you need to define a class. Each method of this
@@ -200,7 +200,7 @@ class represents a test. There are different ways of implementing unit tests,
 either one test method to test a whole tool or one test method per single
 check you want to perform. In hydrobox, we decided to use one TestCase class
 for each method and try to break down each check into a single test method.
-The example below should illustrate this behavior.
+The example below illustrates this.
 
 .. code-block:: python
     :linenos:
@@ -230,7 +230,7 @@ The example below should illustrate this behavior.
         unittest.main()
 
 
-This is a very basic example that does check three different things. It uses
+This is a very basic example that checks three different things. It uses
 our new tool to load a file of known content into the variable ``df``.
 
 .. _contrib_docstrings:
@@ -327,7 +327,7 @@ Create a Pull Request
     https://help.github.com/articles/about-pull-requests.
 
 The best scenario for a pull request would be one that includes the new tool / enhancement, a
-proper docstring, unittests and a new example. However, we will also accept a pull request
+proper docstring, unit tests and a new example. However, we will also accept a pull request
 including only a tool and a docstring. In these cases, please provide a proper description in the
 pull request message in order to make it possible for others to add missing content.
 
