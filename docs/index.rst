@@ -8,6 +8,20 @@
 Welcome to HydroBox's documentation!
 ====================================
 
+Stable branch
+~~~~~~~~~~~~~
+.. image:: https://travis-ci.org/mmaelicke/hydrobox.svg?branch=stable
+    :target: https://travis-ci.org/mmaelicke/hydrobox
+
+.. image:: https://readthedocs.org/projects/hydrobox/badge/?version=latest
+    :target: http://hydrobox.readthedocs.io/en/latest?badge=latest
+
+.. image:: https://codecov.io/gh/mmaelicke/hydrobox/branch/stable/graph/badge
+.svg
+    :target: https://codecov.io/gh/mmaelicke/hydrobox
+
+Development branch
+~~~~~~~~~~~~~~~~~~
 .. image:: https://travis-ci.org/mmaelicke/hydrobox.svg?branch=master
     :target: https://travis-ci.org/mmaelicke/hydrobox
 

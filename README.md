@@ -1,8 +1,15 @@
 # HydroBox
 
+##### Stable branch
+[![Build Status](https://travis-ci.org/mmaelicke/hydrobox.svg?branch=stable)](https://travis-ci.org/mmaelicke/hydrobox)
+[![Documentation Status](https://readthedocs.org/projects/hydrobox/badge/?version=latest)](http://hydrobox.readthedocs.io/en/latest?badge=latest)
+[![codecov](https://codecov.io/gh/mmaelicke/hydrobox/branch/stable/graph/badge.svg)](https://codecov.io/gh/mmaelicke/hydrobox)
+
+##### Development branch
 [![Build Status](https://travis-ci.org/mmaelicke/hydrobox.svg?branch=master)](https://travis-ci.org/mmaelicke/hydrobox)
 [![Documentation Status](https://readthedocs.org/projects/hydrobox/badge/?version=latest)](http://hydrobox.readthedocs.io/en/latest?badge=latest)
 [![codecov](https://codecov.io/gh/mmaelicke/hydrobox/branch/master/graph/badge.svg)](https://codecov.io/gh/mmaelicke/hydrobox)
+
 
 **The HydroBox is mainly a toolbox used in the [V-FOR-WaTer](https://vforwater.de) Project. It will be expanded to
 serve general hydrological data exploration with a future release.**

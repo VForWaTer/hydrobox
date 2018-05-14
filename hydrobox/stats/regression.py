@@ -140,11 +140,21 @@ def linear_regression(*x, df=None, plot=False, ax=None, notext=False):
 
         else:
             p = product(df.columns, df.columns)
-            to_array = lambda d: np.array(list(d.values()))
+
+            # define a sorting function
+            # before the .values method of the resulting dictionary was used,
+            # but Python 3.5 and 3.6 return the dictionary with a different
+            # order. therefore a explicit sorting function is needed
+            def to_array(d):
+                return [d['slope'], d['intercept'], d['rvalue'],
+                        d['pvalue'], d['stderr']]
+
+            # old function, kept for reference
+            # to_array = lambda d: np.array(list(d.values()))
             res = [to_array(linear_regression(df[[*n]])) for n in p]
 
             # build the results
-            np_res = [np.array(el).reshape((n, n))for el in zip(*res)]
+            np_res = [np.array(el).reshape((n, n)) for el in zip(*res)]
             for el in np_res:
                 np.fill_diagonal(el, np.NaN)
 
