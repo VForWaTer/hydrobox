@@ -2,16 +2,6 @@
 Input / Output
 ==============
 
-From SQL
-========
-
-from_sql
---------
-.. autofunction:: hydrobox.io.sql.from_sql
-
-vforwater_timeseries_by_id
---------------------------
-.. autofunction:: hydrobox.io.sql.vforwater_timeseries_by_id
 
 Random
 ======

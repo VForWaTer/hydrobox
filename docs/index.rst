@@ -16,8 +16,7 @@ Stable branch
 .. image:: https://readthedocs.org/projects/hydrobox/badge/?version=latest
     :target: http://hydrobox.readthedocs.io/en/latest?badge=latest
 
-.. image:: https://codecov.io/gh/mmaelicke/hydrobox/branch/stable/graph/badge
-.svg
+.. image:: https://codecov.io/gh/mmaelicke/hydrobox/branch/stable/graph/badge.svg
     :target: https://codecov.io/gh/mmaelicke/hydrobox
 
 Development branch
