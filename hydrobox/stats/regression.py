@@ -70,7 +70,7 @@ def linear_regression(*x, df=None, plot=False, ax=None, notext=False):
     """
     # combine all inputs
     if df is None:
-        df = merge(*x, dropna=False)
+        df = merge(*x, dropna=True)
 
     if len(df.columns) == 2:
         slope, intercept, rvalue, pvalue, stderr = linregress(df.values[:, 0],
