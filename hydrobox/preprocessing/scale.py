@@ -91,11 +91,11 @@ def cut_period(x, start, stop):
     start : string, datetime
         Begin of truncation. Can be a ``datetime.datetime`` or a string.
         If a string is passed, it has to use the format 'YYYYMMDDhhmmss',
-        where the time componen 'hhmmss' can be omitted.
+        where the time component 'hhmmss' can be omitted.
     stop : string, datetime,
         End of truncation. Can be a ``datetime.datetime`` or a string.
         If a string is passed, it has to use the format 'YYYYMMDDhhmmss',
-        where the time componen 'hhmmss' can be omitted.
+        where the time component 'hhmmss' can be omitted.
 
     """
     # check for being a time series
