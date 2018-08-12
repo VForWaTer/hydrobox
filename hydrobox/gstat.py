@@ -19,7 +19,8 @@ def variogram(
         model='spherical',
         estimator='cressie',
         s=None,
-        plot=True
+        plot=True,
+        ax=None
 ):
     """Variogram Function
 
@@ -98,6 +99,9 @@ def variogram(
     plot : bool
         If True, the function will return a plot of the Variogram, if False,
         it will return a tuple of (bins, experimental, model).
+    ax : None, matplotlib.AxesSubplot
+        If None, the function will create a new matplotlib Figure. In case an
+        AxesSubplot is passed, that instance will be used for plotting.
 
     Returns
     -------
@@ -119,9 +123,10 @@ def variogram(
     _x = np.linspace(_bins[0], _bins[-1], 100)
 
     # build the coeffs
-    cof = [effective_range, sill, nugget]
+    cof = [effective_range, sill]
     if V.model.__name__ in ('matern', 'stable'):
         cof.append(s)
+    cof.append(nugget)
 
     def modelf(x):
         return V.model(x, *cof)
@@ -132,9 +137,16 @@ def variogram(
     if not plot:
         return _bins, _exp, _y
     else:
-        fig, ax = plt.subplots(1, 1, figsize=(8, 6))
+        if ax is None:
+            fig, ax = plt.subplots(1, 1, figsize=(8, 6))
+        else:
+            fig = ax.get_figure()
+
+        # plot
         ax.plot(_bins, _exp, 'Dr')
         ax.plot(_x, _y, '-g')
         ax.set_xlabel('Lag')
         ax.set_ylabel('semi-variance [%s]' % estimator)
         ax.set_title('%s variogram' % model)
+
+        return fig
