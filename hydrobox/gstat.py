@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from skgstat import Variogram
 
 
-def variogram(
+def variogram_model(
         coordinates,
         values,
         effective_range,

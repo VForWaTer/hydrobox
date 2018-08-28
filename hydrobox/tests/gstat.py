@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 from numpy.testing import assert_array_almost_equal
 
-from hydrobox.toolbox import variogram
+from hydrobox.toolbox import variogram_model
 
 class TestVariogram(unittest.TestCase):
     def setUp(self):
@@ -19,16 +19,16 @@ class TestVariogram(unittest.TestCase):
              18.87, 22.72, 16.34, 20.74, 28.57, 0.]
 
     def test_default_no_plot(self):
-        b, e, y = variogram(self.c, self.v, effective_range=37., sill=21.,
-                      plot=False)
+        b, e, y = variogram_model(self.c, self.v, effective_range=37., sill=21.,
+                                  plot=False)
 
         # test
         assert_array_almost_equal(self.b, b, decimal=2)
         assert_array_almost_equal(self.e, e, decimal=2)
 
     def test_matern_function(self):
-        b, e, y = variogram(self.c, self.v, effective_range=37., sill=21.,
-                            nugget=3., plot=False, model='matern', s=15.)
+        b, e, y = variogram_model(self.c, self.v, effective_range=37., sill=21.,
+                                  nugget=3., plot=False, model='matern', s=15.)
 
         # test
         # experimental part should not have changed
@@ -44,12 +44,12 @@ class TestVariogram(unittest.TestCase):
 
     def test_variogram_plot(self):
         # run without plot first:
-        b, e, y = variogram(self.c, self.v, effective_range=37., sill=21.,
-                            nugget=3., plot=False, model='matern', s=15.)
+        b, e, y = variogram_model(self.c, self.v, effective_range=37., sill=21.,
+                                  nugget=3., plot=False, model='matern', s=15.)
 
         # run with plot
-        fig = variogram(self.c, self.v, effective_range=37., sill=21.,
-                            nugget=3., plot=True, model='matern', s=15.)
+        fig = variogram_model(self.c, self.v, effective_range=37., sill=21.,
+                              nugget=3., plot=True, model='matern', s=15.)
         # dig out the arrays
         ax = fig.axes[0]
         exp_line, mod_line = ax.get_lines()

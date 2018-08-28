@@ -9,6 +9,6 @@ from .signal import simplify
 from .preprocessing.scale import aggregate, cut_period
 from .preprocessing.union import merge
 from .stats import moving_window, linear_regression
-from .gstat import variogram
+from .gstat import variogram_model
 from . import io
 from . import stats, gstat
