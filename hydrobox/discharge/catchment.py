@@ -44,7 +44,7 @@ def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **k
 
     Returns
     -------
-    matplotlib.AxesSubplot :
+    matplotlib.Figure :
         if `plot` was `True`
     numpy.ndarray :
         if `plot was `False`
@@ -104,6 +104,8 @@ def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **k
     # generate an Axes, if ax is None
     if ax is None:
         fig, ax = plt.subplots(1, 1)
+    else:
+        fig = ax.get_figure()
 
     # plot
     # set some defaults
@@ -124,7 +126,7 @@ def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **k
     ax.set_title('%sFDC' % ('loglog ' if log else ''))
     ax.grid(which='both' if log else 'major')
 
-    return ax
+    return fig
 
 
 @accept(x=pd.Series,
@@ -197,7 +199,7 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
 
     Returns
     -------
-    matplotlib.AxesSubplot :
+    matplotlib.Figure :
         if `plot` was `True`
     pandas.DataFrame :
         if `plot` was `False` and `quantiles` are not None
@@ -257,6 +259,8 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
     # create the plot
     if ax is None:
         fig, ax = plt.subplots(1, 1)
+    else:
+        fig = ax.get_figure()
 
     # some defaults
     kwargs.setdefault('cmap', 'Blues')
@@ -287,4 +291,4 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
     ax.set_xlim(0, 12)
     plt.xticks(df.index, MONTHS, rotation=45)
 
-    return ax
+    return fig
