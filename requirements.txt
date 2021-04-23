@@ -1,9 +1,7 @@
-matplotlib
 numpy
 scipy
-nose
 pandas
+matplotlib
+colorcet
 scikit-learn
-scikit-gstat>=0.2.0
-sqlalchemy
-psycopg2
+scikit-gstat>=0.5.0

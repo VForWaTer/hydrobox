@@ -2,21 +2,25 @@
 Common tools for diagnosic tools frequently used in catchment hydrology.
 
 """
-from hydrobox.utils.decorators import accept
+from typing import Union, Optional, Any
 from matplotlib.axes import SubplotBase
-from matplotlib.pylab import get_cmap
-import matplotlib.pyplot as plt
+from matplotlib.pyplot import Figure
 import numpy as np
 import pandas as pd
 from datetime import datetime
 from scipy.stats import rankdata
 
-MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+from hydrobox.plotting import plot_function_loader
 
 
-@accept(x=(np.ndarray, pd.Series),log=bool, plot=bool, non_exceeding=bool,
-ax=('None', SubplotBase))
-def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **kwargs):
+def flow_duration_curve(
+        x: Union[np.ndarray, pd.Series], 
+        log: bool = True, 
+        plot: bool = True, 
+        non_exceeding:bool = True, 
+        ax: Optional[Union[SubplotBase, Any]] = None, 
+        **kwargs
+    ) -> Union[np.ndarray, Figure]:
     """Calculate a flow duration curve
 
     Calculate flow duration curve from the discharge measurements. The
@@ -37,8 +41,11 @@ def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **k
         be returned
     non_exceeding : bool, default=True
         if `True` use non-exceeding probabilities
-    ax : matplotlib.AxesSubplot, default=None
-        if not None, will plot into that AxesSubplot instance
+    ax : matplotlib.AxesSubplot | bokeh.Figure , default=None
+        if not None, will plot into that AxesSubplot or Figure instance.
+        .. note::
+            If you pass an object, be sure to set the correct plotting 
+            backend first.
     kwargs : kwargs,
         will be passed to the ``matplotlib.pyplot.plot`` function
 
@@ -100,43 +107,22 @@ def flow_duration_curve(x, log=True, plot=True, non_exceeding=True, ax=None, **k
 
     if not plot:
         return p[index]
-
-    # generate an Axes, if ax is None
-    if ax is None:
-        fig, ax = plt.subplots(1, 1)
     else:
-        fig = ax.get_figure()
-
-    # plot
-    # set some defaults
-    kwargs.setdefault('linestyle', '-')
-    kwargs.setdefault('color', 'b')
-    ax.plot(x[index], p[index], **kwargs)
-
-    # label
-    ax.set_xlabel('discharge [m3/s]')
-    ax.set_ylabel('%sexceeding prob.' % ('non-' if non_exceeding else ''))
-
-    # handle loglog
-    if log:
-        ax.loglog()
-    else:
-        ax.set_ylim((-0.05, 1.1))
-        ax.set_xlim(np.nanmin(x) * 0.98, np.nanmax(x) * 1.02)
-    ax.set_title('%sFDC' % ('loglog ' if log else ''))
-    ax.grid(which='both' if log else 'major')
-
+        pfunc = plot_function_loader('flow_duration_curve')
+    
+    fig = pfunc(func_args=dict(
+        x=x[index], 
+        y=p[index], 
+        non_exceeding=non_exceeding,
+        log=log,
+        figure=ax),
+        plot_args=kwargs
+    )
     return fig
 
 
-@accept(x=pd.Series,
-        percentiles=('None', int, list, np.ndarray),
-        normalize=bool,
-        agg=(str, 'callable'),
-        plot=bool,
-        ax=('None', SubplotBase))
 def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
-           ax=None, **kwargs):
+           ax=None, cmap='blues', **kwargs):
     r"""Calculate hydrological regime
 
     Calculate a hydrological regime from discharge measurements. A regime is
@@ -177,8 +163,8 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
         if not None, will plot into that AxesSubplot instance
     cmap : string, optional
         Specify a colormap for generating the Percentile areas is a smooth
-        color gradient. This has to be a valid colormap reference,
-        see https://matplotlib.org/examples/color/colormaps_reference.html.
+        color gradient. This has to be a valid 
+        `colorcet colormap reference <https://colorcet.holoviz.org/user_guide/Continuous.html>`_.
         Defaults to ``'Blue'``.
     color : string, optional
         Define the color of the main aggregate. If ``None``, the first color
@@ -255,40 +241,13 @@ def regime(x, percentiles=None, normalize=False, agg='nanmedian', plot=True,
             return df.values
         else:
             return df
-
-    # create the plot
-    if ax is None:
-        fig, ax = plt.subplots(1, 1)
     else:
-        fig = ax.get_figure()
+        pfunc = plot_function_loader('regime')
 
-    # some defaults
-    kwargs.setdefault('cmap', 'Blues')
-    kwargs.setdefault('color', None)
-    kwargs.setdefault('lw', 3)
-    kwargs.setdefault('linestyle', '-')
-
-    cm = get_cmap(kwargs['cmap'])
-
-    # check if there are quantiles
-    if len(df.columns) > 1:
-        # build the colormap
-        n = int((len(df.columns) - 1) / 2)
-        cmap = [cm(1. * _ / n) for _ in range(n)]
-        cmap = np.concatenate((cmap, cmap[::-1]))
-
-        # plot
-        for i in range(len(df.columns) - 2, 1, -1):
-            ax.fill_between(df.index, df.iloc[:, i], df.iloc[:, i - 1],
-                            interpolate=True, color=cmap[i - 1])
-
-    # plot the main aggregate
-    c = kwargs.get('color')
-    if c is None:
-        c = cm(0.0)
-    ax.plot(df.index, df.iloc[:, 0], linestyle=kwargs['linestyle'],
-            color=c, lw=kwargs['lw'])
-    ax.set_xlim(0, 12)
-    plt.xticks(df.index, MONTHS, rotation=45)
+    # check if a colormap was set
+    fig = pfunc(
+        func_args=dict(df=df, figure=ax, cmap=cmap),
+        plot_args=kwargs
+    )
 
     return fig

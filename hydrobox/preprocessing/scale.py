@@ -9,10 +9,7 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-from hydrobox.utils.decorators import accept
 
-
-@accept(x=(pd.Series, pd.DataFrame), by=(str, 'None'), func=(str, 'callable'))
 def aggregate(x, by, func='mean'):
     """Time series aggregation
 
@@ -72,10 +69,6 @@ def aggregate(x, by, func='mean'):
         return x.groupby(pd.Grouper(freq=by)).aggregate(f)
 
 
-@accept(
-    x=(pd.Series, pd.DataFrame),
-    start=(str, datetime, 'None'),
-    stop=(str, datetime, 'None'))
 def cut_period(x, start, stop):
     """Truncate Time series
 

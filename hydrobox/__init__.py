@@ -1,9 +1,12 @@
 import sys
 
 # Python 3.3 is not supported.
-if sys.version_info < (3, 3):
-    raise ImportError('Python < 3.3 is not supported')
+if sys.version_info < (3, 6):
+    raise ImportError('Python < 3.6 is not supported')
 
-import hydrobox.tests
+
 import hydrobox.utils
-import hydrobox.toolbox
+from hydrobox.plotting._backend import plotting_backend
+
+__version__ = '0.1.6'
+__plot_backend__ = 'matplotlib'

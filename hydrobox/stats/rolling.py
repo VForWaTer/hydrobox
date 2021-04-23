@@ -3,15 +3,10 @@
 Helper functions to apply rolling statistics to input data.
 
 """
-from hydrobox.utils.decorators import accept
 import pandas as pd
 import numpy as np
 
-@accept(
-    x=(pd.Series, pd.DataFrame),
-    window_size=int,
-    window_type=(str, 'None'),
-    func=(str, 'callable'))
+
 def moving_window(x, window_size=5, window_type=None, func='nanmean'):
     r"""Moving window statistics
 
