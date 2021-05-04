@@ -23,7 +23,7 @@ jobs:
           python3 setup.py install
       
       - name: Install PyTest
-        run: pip install pytest
+        run: pip install pytest pytest-cov pytest-depends
 
       - name: Test
         run: pytest --cov-config=.coveragerc --cov=./ --cov-report=xml
