@@ -1,4 +1,5 @@
 from typing import Union, Callable, Literal
+import numpy as np
 
 # some typings
 Estimator = Union[
