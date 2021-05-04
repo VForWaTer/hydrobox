@@ -2,6 +2,7 @@ numpy
 scipy
 pandas
 matplotlib
+plotly
 colorcet
 scikit-learn
 scikit-gstat>=0.5.0

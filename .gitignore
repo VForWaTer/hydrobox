@@ -108,4 +108,4 @@ ENV/
 cover
 
 # ignore IPython sphinx directive savefig
-docs/savefig
+doc/_build
