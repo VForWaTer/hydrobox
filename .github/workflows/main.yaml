@@ -60,10 +60,9 @@ jobs:
           make html
 
       - name: Deploy
-        uses: crazy-max/ghaction-pages@v1
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
-          target_branch: gh-pages
-          build_dir: doc/_build/html
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: doc/_build/html
+
 
