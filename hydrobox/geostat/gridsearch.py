@@ -41,6 +41,8 @@ def gridsearch(
         If True (default) the score will be applied to a leave-one-out
         cross-validation of a Kriging using the current Variogram.
         If False, the model fit to the experimental variogra, will be scored.
+        .. note:: 
+            Needs at least `scikit-gstat>=0.5.5`.
     n_jobs : int
         Will be passed down to :class:`GridSearchCV <sklearn.model_selection.GridSearchCV>`
     return_type : str
@@ -76,10 +78,14 @@ def gridsearch(
         values = variogram.values
         kwargs.update(variogram.describe(flat=True))
 
+    # handle cross-validate
+    _, skg_m, skg_p = skg.__version__.split('.')
+    if int(skg_m) > 5 or int(skg_p) >= 4:  # pragma: no cover
+        kwargs['cross_validate'] = cross_validate
+
     # initialize the estimator
     estimator = skg.interfaces.VariogramEstimator(
         use_score=score,
-        cross_validate=cross_validate,
         **kwargs
     )
 
