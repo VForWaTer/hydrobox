@@ -18,9 +18,7 @@ jobs:
           python-version: 3.8
         
       - name: Install Hydrobox
-        run: |
-          pip3 install -r requirements.txt
-          pip3 install -e .
+        run: pip3 install -e .
       
       - name: Install PyTest
         run: pip install pytest pytest-cov pytest-depends
@@ -47,9 +45,7 @@ jobs:
           python-version: 3.8
         
       - name: Install Hydrobox
-        run: |
-          pip3 install -r requirements.txt
-          python3 setup.py install
+        run: pip3 install -e .
       
       - name: Install Doc requirements
         run: pip install sphinx pydata_sphinx_theme sphinx-gallery sphinx_autodoc_typehints
