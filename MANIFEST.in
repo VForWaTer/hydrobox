@@ -3,3 +3,5 @@ include VERSION.txt
 include requirements.txt
 include LICENSE
 include classifiers.txt
+graft hydrobox/data/*.csv
+graft hydrobox/data/*.txt
