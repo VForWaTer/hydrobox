@@ -17,7 +17,7 @@ def variogram(
     fit_sigma: typing.FitSigma = None,
     use_nugget: bool = False,
     maxlag: typing.Maxlag = None,
-    n_lags: typing.Union[int, None] = None,
+    n_lags: typing.Union[int, None] = 10,
     return_type: typing.Literal['object', 'describe', 'plot', 'distance_difference', 'location_trend', 'scattergram'] = 'object',
     **kwargs
 ) -> skg.Variogram:
@@ -38,6 +38,10 @@ def variogram(
     -------
     variogram : skgstat.Variogram
         If the return type is `'object'`
+    plot : plotly.Figure, matplotlib.pyplot.Figure
+        If the return type is one of the plots
+    description : dict
+        If the trheturn type is `'describe'`
 
     """
     # create the variogram

@@ -1,0 +1,20 @@
+[run]
+omit = 
+    hydrobox/tests/*
+    hydrobox/plotting/*
+    doc/*
+    examples/*
+    setup.py
+    */typing.py
+
+[report]
+exclude_lines = 
+    pragma: no cover
+    def __repr__
+    def __str__
+    if self\.debug:
+    if False:
+    if 0:
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
