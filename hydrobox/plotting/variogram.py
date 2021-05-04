@@ -3,7 +3,7 @@ from skgstat import Variogram
 
 def __plot(variogram: Variogram, plot_type: str, **kwargs): 
     # always suppress sho
-    plot_args['show'] = False
+    kwargs['show'] = False
     
     # get the figure
     if plot_type == 'plot':
