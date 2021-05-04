@@ -20,6 +20,9 @@ def gridsearch(
     Uses :class:`GridSearchCV <sklearn.model_selection.GridSearchCV>` to
     find the best parameter set.
 
+    .. todo::
+        with scikit-gstat 0.6, remove the cross_validate check.
+
     Parameters
     ----------
     param_grid : dict
@@ -42,7 +45,7 @@ def gridsearch(
         cross-validation of a Kriging using the current Variogram.
         If False, the model fit to the experimental variogra, will be scored.
         .. note:: 
-            Needs at least `scikit-gstat>=0.5.5`.
+            Needs at least `scikit-gstat>=0.5.4`.
     n_jobs : int
         Will be passed down to :class:`GridSearchCV <sklearn.model_selection.GridSearchCV>`
     return_type : str
