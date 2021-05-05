@@ -75,7 +75,7 @@ import sphinx_gallery
 
 # Sphinx Gallery config
 sphinx_gallery_conf = {
-    'example_dirs': '../examples',
+    'examples_dirs': '../examples',
     'gallery_dirs': 'auto_examples',
     'backreferences_dir': 'gen_modules/backreferences',
     'doc_module': ('hydrobox',),
