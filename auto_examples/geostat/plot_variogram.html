@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estimate a Variogram &#8212; HydroBox 0.2.0 documentation</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Hydrobox Examples" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../index.html">
+<p class="title">HydroBox</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../toolboxes.html">
+  Toolboxes
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  Hydrobox Examples
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Estimate a Variogram
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-geostat-plot-variogram-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="estimate-a-variogram">
+<span id="sphx-glr-auto-examples-geostat-plot-variogram-py"></span><h1>Estimate a Variogram<a class="headerlink" href="#estimate-a-variogram" title="Permalink to this headline">¶</a></h1>
+<p>Use the geostatistics toolbox to estimate a variogram and use one of the many
+plots.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a>
+<span class="kn">import</span> <span class="nn">plotly</span>
+<span class="kn">import</span> <span class="nn">hydrobox</span>
+<span class="kn">from</span> <span class="nn">hydrobox.data</span> <span class="kn">import</span> <span class="n">pancake</span>
+<span class="kn">from</span> <span class="nn">hydrobox.plotting</span> <span class="kn">import</span> <span class="n">plotting_backend</span>
+<span class="n">plotting_backend</span><span class="p">(</span><span class="s1">&#39;plotly&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load sample data from the data sub-module</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pancake</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Estimate a variogram using a _exponential_ model and 25 distance lags
+that are derived from a KMeans cluster algorithm
+Here, we use the _describe_ output option to get a dictionary of
+all variogram parameters</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vario</span></a> <span class="o">=</span> <span class="n">hydrobox</span><span class="o">.</span><span class="n">geostat</span><span class="o">.</span><span class="n">variogram</span><span class="p">(</span>
+    <span class="n">coordinates</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="n">values</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">,</span>
+    <span class="n">bin_func</span><span class="o">=</span><span class="s1">&#39;kmeans&#39;</span><span class="p">,</span>
+    <span class="n">n_lags</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;describe&#39;</span>
+<span class="p">)</span>
+<span class="c1"># print</span>
+<a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">vario</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;dist_func&#39;: &#39;euclidean&#39;,
+ &#39;effective_range&#39;: 440.23387722658504,
+ &#39;estimator&#39;: &#39;matheron&#39;,
+ &#39;kwargs&#39;: {},
+ &#39;model&#39;: &#39;exponential&#39;,
+ &#39;normalized_effective_range&#39;: 246442.01451741206,
+ &#39;normalized_nugget&#39;: 0,
+ &#39;normalized_sill&#39;: 2423777.7530702623,
+ &#39;nugget&#39;: 0,
+ &#39;params&#39;: {&#39;bin_func&#39;: &#39;kmeans&#39;,
+            &#39;dist_func&#39;: &#39;euclidean&#39;,
+            &#39;estimator&#39;: &#39;matheron&#39;,
+            &#39;fit_method&#39;: &#39;trf&#39;,
+            &#39;fit_sigma&#39;: None,
+            &#39;maxlag&#39;: None,
+            &#39;model&#39;: &#39;exponential&#39;,
+            &#39;n_lags&#39;: 25,
+            &#39;normalize&#39;: False,
+            &#39;use_nugget&#39;: False,
+            &#39;verbose&#39;: False},
+ &#39;sill&#39;: 1556.8486609398685}
+</pre></div>
+</div>
+<p>Create a plot of the variogram</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">hydrobox</span><span class="o">.</span><span class="n">geostat</span><span class="o">.</span><span class="n">variogram</span><span class="p">(</span>
+    <span class="n">coordinates</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="n">values</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">,</span>
+    <span class="n">bin_func</span><span class="o">=</span><span class="s1">&#39;kmeans&#39;</span><span class="p">,</span>
+    <span class="n">n_lags</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+    <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;plot&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># show the figure</span>
+<span class="n">plotly</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+</pre></div>
+</div>
+<html>
+<head><meta charset="utf-8" /></head>
+<body>
+    <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>                <div id="968e27b5-ad66-4371-b701-a3db9a38c8b4" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("968e27b5-ad66-4371-b701-a3db9a38c8b4")) {                    Plotly.newPlot(                        "968e27b5-ad66-4371-b701-a3db9a38c8b4",                        [{"marker": {"color": "blue"}, "mode": "markers", "name": "Experimental", "type": "scatter", "x": [13.112919737297332, 39.189232511772644, 63.52314474134103, 85.32490246757445, 106.03114323928433, 126.43218472060222, 146.6654525110994, 166.72670523189745, 186.52497120897186, 206.21944239649557, 225.5023237388593, 243.89969475392047, 261.438759064741, 278.8005570736434, 296.9947151908917, 316.61450699422653, 337.72951868625194, 359.7996341004088, 382.16890182568306, 404.43708811389183, 426.916790620072, 450.7423750995544, 478.06498811259667, 512.5527584027257, 559.7979330213386], "xaxis": "x2", "y": [73.04435483870968, 323.2403799318071, 541.880599185573, 718.9476730166385, 807.6269371941273, 860.1855789849893, 954.6689078386356, 1007.7127827875336, 1093.9759665621734, 1173.365876571759, 1213.8174728105323, 1230.1857208448118, 1264.020676991857, 1342.17974662718, 1372.9251734390484, 1441.556289308176, 1471.6947456850464, 1487.8693665300975, 1445.0070422535211, 1475.2816046966732, 1520.3328751431843, 1556.8486609398688, 1530.7888724035608, 1460.4727822580646, 1506.3516014234876], "yaxis": "y2"}, {"marker": {"color": "green"}, "mode": "lines", "name": "exponential model", "type": "scatter", "x": [0.0, 5.6545245759731175, 11.309049151946235, 16.963573727919353, 22.61809830389247, 28.272622879865587, 33.92714745583871, 39.58167203181182, 45.23619660778494, 50.89072118375806, 56.54524575973117, 62.199770335704294, 67.85429491167741, 73.50881948765053, 79.16334406362364, 84.81786863959677, 90.47239321556988, 96.126917791543, 101.78144236751612, 107.43596694348923, 113.09049151946235, 118.74501609543547, 124.39954067140859, 130.05406524738171, 135.70858982335483, 141.36311439932794, 147.01763897530105, 152.67216355127417, 158.32668812724728, 163.98121270322042, 169.63573727919353, 175.29026185516665, 180.94478643113976, 186.59931100711287, 192.253835583086, 197.9083601590591, 203.56288473503224, 209.21740931100535, 214.87193388697847, 220.52645846295158, 226.1809830389247, 231.8355076148978, 237.49003219087095, 243.14455676684406, 248.79908134281717, 254.4536059187903, 260.10813049476343, 265.7626550707365, 271.41717964670966, 277.07170422268274, 282.7262287986559, 288.38075337462897, 294.0352779506021, 299.68980252657525, 305.34432710254833, 310.9988516785215, 316.65337625449456, 322.3079008304677, 327.96242540644084, 333.6169499824139, 339.27147455838707, 344.92599913436015, 350.5805237103333, 356.2350482863064, 361.8895728622795, 367.54409743825266, 373.19862201422575, 378.8531465901989, 384.507671166172, 390.1621957421451, 395.8167203181182, 401.47124489409134, 407.1257694700645, 412.78029404603757, 418.4348186220107, 424.0893431979838, 429.74386777395694, 435.3983923499301, 441.05291692590316, 446.7074415018763, 452.3619660778494, 458.01649065382253, 463.6710152297956, 469.32553980576876, 474.9800643817419, 480.634588957715, 486.2891135336881, 491.9436381096612, 497.59816268563435, 503.25268726160743, 508.9072118375806, 514.5617364135537, 520.2162609895269, 525.8707855654999, 531.525310141473, 537.1798347174462, 542.8343592934193, 548.4888838693925, 554.1434084453655, 559.7979330213386], "xaxis": "x2", "y": [0.0, 58.84909675412199, 115.4736894342992, 169.9578646051171, 222.3825303472791, 272.8255364047415, 321.3617897902698, 368.06336602108763, 412.9996161498052, 456.2372697495601, 497.84053400630916, 537.8711890654149, 576.3886797741193, 613.4502039561389, 649.1107973494676, 683.423415333519, 716.4390115669705, 748.2066136530888, 778.7733959448898, 808.18474959826, 836.4843499770559, 863.7142215102816, 889.9148000976575, 915.1249931562486, 939.3822373973234, 962.7225544192361, 985.1806041988946, 1006.7897365612404, 1027.5820407031754, 1047.588392845479, 1066.8385020834726, 1085.360954504528, 1103.1832556379227, 1120.3318713000865, 1136.8322668958936, 1152.7089452343578, 1167.985482914892, 1182.6845653381583, 1196.8280203935076, 1210.4368508730247, 1223.5312656603214, 1236.1307097403878, 1248.2538930750657, 1259.9188183870278, 1271.1428078935153, 1281.9425290295399, 1292.3340191987422, 1302.3327095886661, 1311.9534480858122, 1321.2105213244974, 1330.1176759022678, 1338.6881387933622, 1346.9346369905466, 1354.8694164044834, 1362.5042600487022, 1369.850505537176, 1376.919061920487, 1383.7204258855813, 1390.264697343174, 1396.5615944259441, 1402.6204679197995, 1408.4503151496335, 1414.0597933402041, 1419.4572324719634, 1424.6506476509403, 1429.647751011036, 1434.4559631664133, 1439.0824242309845, 1443.5340044213583, 1447.8173142589967, 1451.9387143867273, 1455.904325014191, 1459.7200350062492, 1463.39151062785, 1466.9242039583348, 1470.3233609876847, 1473.594029406728, 1476.7410661028732, 1479.7691443725084, 1482.6827608607643, 1485.4862422389585, 1488.1837516296291, 1490.7792947887, 1493.2767260539626, 1495.6797540687016, 1497.9919472889678, 1500.216739282674, 1502.3574338283881, 1504.4172098213855, 1506.3991259942572, 1508.3061254590752, 1510.1410400778636, 1511.906594667867, 1513.6054110478576, 1515.2400119314923, 1516.8128246734989, 1518.3261848742582, 1519.7823398481303, 1521.183451960678, 1522.5316018397457], "yaxis": "y2"}, {"marker": {"color": "red"}, "name": "Histogram", "type": "bar", "x": [13.112919737297332, 39.189232511772644, 63.52314474134103, 85.32490246757445, 106.03114323928433, 126.43218472060222, 146.6654525110994, 166.72670523189745, 186.52497120897186, 206.21944239649557, 225.5023237388593, 243.89969475392047, 261.438759064741, 278.8005570736434, 296.9947151908917, 316.61450699422653, 337.72951868625194, 359.7996341004088, 382.16890182568306, 404.43708811389183, 426.916790620072, 450.7423750995544, 478.06498811259667, 512.5527584027257, 559.7979330213386], "y": [248, 2053, 3438, 4147, 4904, 5596, 6098, 6321, 6699, 6919, 6988, 6534, 6263, 6078, 6054, 6360, 6547, 6346, 5893, 5110, 4365, 3958, 3370, 2480, 1405]}],                        {"template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "matches": "x2", "showticklabels": false}, "xaxis2": {"anchor": "y2", "domain": [0.0, 1.0], "title": {"text": "Lag [-]"}}, "yaxis": {"anchor": "x", "domain": [0.8, 1.0], "title": {"text": "# of pairs"}}, "yaxis2": {"anchor": "x2", "domain": [0.0, 0.8], "title": {"text": "semivariance (matheron)"}}},                        {"responsive": true}                    )                };                            </script>        </div>
+</body>
+</html><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.376 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-geostat-plot-variogram-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/ca558b37accee3259767237c77c520ea/plot_variogram.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_variogram.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/78e5db62f8807b0d18121dcc6ba4a17e/plot_variogram.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_variogram.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">Hydrobox Examples</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Mirko Mälicke.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
