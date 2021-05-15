@@ -21,4 +21,4 @@ Content of :py:mod:`hydrobox.geostat`:
 """
 from .variogram import variogram
 from .gridsearch import gridsearch
-from .kriging import ordinary_kriging
+from .kriging import ordinary_kriging, simple_kriging, universal_kriging, ext_drift_kriging
