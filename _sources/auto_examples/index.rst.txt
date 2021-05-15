@@ -17,8 +17,8 @@ This gallery collects example scripts for most functions in hydrobox.
 
 .. _sphx_glr_auto_examples_geostat:
 
-Geostatistics Toolboxes
-=======================
+Geostatistics Toolbox
+---------------------
 
 The following examples demonstrate the usage of the geostatistics toolbox.
 
