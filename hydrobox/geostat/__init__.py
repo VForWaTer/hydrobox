@@ -6,8 +6,11 @@ This toolbox collects all functions needed to run different geostatistical
 tasks. Variogram analysis can be done with :func:`variogram <hydrobox.geostat.variogram>`,
 which wraps the scikit-gstat Variogram class.
 
+Variogram estimation
+~~~~~~~~~~~~~~~~~~~~
+
 .. minigallery:: hydrobox.geostat.variogram hydrobox.geostat.gridsearch
-    :add-heading: Geostatistics examples
+    :add-heading: Variogram examples
 
 Content of :py:mod:`hydrobox.geostat`:
 
@@ -17,6 +20,25 @@ Content of :py:mod:`hydrobox.geostat`:
 
     variogram
     gridsearch
+
+Kriging
+~~~~~~~
+
+Kriging can be performed, after a variogram was estimated. the :class:`Variogram <skgstat.Variogram>`
+is exported to gstools and one of the :any:`Krige <gstools.Krige>` classes will be used for
+kriging.
+
+.. minigallery:: hydrobox.geostat.simple_kriging hydrobox.geostat.ordinary_kriging hydrobox.geostat.universal_kriging hydrobox.geostat.ext_drift_kriging
+    :add-heading: Kriging examples
+
+.. autosummary::
+    :toctree: gen_modules/
+    :template: module.rst
+
+    simple_kriging
+    ordinary_kriging
+    universal_kriging
+    ext_drift_kriging
 
 """
 from .variogram import variogram
