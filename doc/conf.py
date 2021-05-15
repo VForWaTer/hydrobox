@@ -36,7 +36,8 @@ extensions = [
     'sphinx_autodoc_typehints',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinx_gallery.gen_gallery'
+    'sphinx_gallery.gen_gallery',
+    'sphinx.ext.todo'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -65,7 +66,8 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'sklearn': ('http://scikit-learn.org/stable', None),
     'numpy': ('http://docs.scipy.org/doc/numpy', None),
-    'skgstat': ('https://mmaelicke.github.io/scikit-gstat', None)
+    'skgstat': ('https://mmaelicke.github.io/scikit-gstat', None),
+    'gstools': ('https://geostat-framework.readthedocs.io/projects/gstools/en/latest', None)
 }
 
 from plotly.io._sg_scraper import plotly_sg_scraper
