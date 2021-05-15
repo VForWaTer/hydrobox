@@ -23,7 +23,10 @@ def _kriging(
 
     # build the grid
     if isinstance(grid_resolution, int):
-        dims = [range(grid_resolution) for _ in range(variogram.dim)]
+        # get the coordinate ranges
+        lower = np.min(variogram.coordinates, axis=0)
+        upper = np.max(variogram.coordinates, axis=0)
+        dims = [np.linspace(l, u, grid_resolution) for l, u in zip(lower, upper)]
     else:
         raise AttributeError('Right now, only integer grid_resolutions are supported.')
 
