@@ -62,9 +62,9 @@ Load sample data from the data sub-module
 
 .. GENERATED FROM PYTHON SOURCE LINES 22-26
 
-Estimate a variogram using a _exponential_ model and 25 distance lags
+Estimate a variogram using a exponential model and 25 distance lags
 that are derived from a KMeans cluster algorithm
-Here, we use the _describe_ output option to get a dictionary of 
+Here, we use the describe output option to get a dictionary of 
 all variogram parameters
 
 .. GENERATED FROM PYTHON SOURCE LINES 26-38
@@ -94,11 +94,11 @@ all variogram parameters
  .. code-block:: none
 
     {'dist_func': 'euclidean',
-     'effective_range': 440.23387722658504,
+     'effective_range': 440.23387721972847,
      'estimator': 'matheron',
      'kwargs': {},
      'model': 'exponential',
-     'normalized_effective_range': 246442.01451741206,
+     'normalized_effective_range': 246442.01451357373,
      'normalized_nugget': 0,
      'normalized_sill': 2423777.7530702623,
      'nugget': 0,
@@ -118,11 +118,12 @@ all variogram parameters
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-40
+.. GENERATED FROM PYTHON SOURCE LINES 39-41
 
-Create a plot of the variogram
+There are various return types, one of them is the plot.
+This is the main plotting tool for variogram instances
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-50
+.. GENERATED FROM PYTHON SOURCE LINES 41-53
 
 .. code-block:: default
 
@@ -139,6 +140,8 @@ Create a plot of the variogram
     plotly.io.show(fig)
 
 
+
+
 .. raw:: html
     :file: images/sphx_glr_plot_variogram_001.html
 
@@ -146,10 +149,110 @@ Create a plot of the variogram
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 54-56
+
+Alternatively you can return the :class:`Variogram <skgstat.Variogram>`
+object itself and use all the different settings and methods directly.
+
+.. GENERATED FROM PYTHON SOURCE LINES 56-68
+
+.. code-block:: default
+
+
+    v = hydrobox.geostat.variogram(
+        coordinates=df[['x', 'y']].values,
+        values=df.z.values,
+        model='exponential',
+        bin_func='kmeans',
+        n_lags=25,
+        return_type='object'
+    )
+
+    pprint(v)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    < exponential Semivariogram fitted to 25 bins >
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 69-72
+
+The :class:`Variogram <skgstat.Variogram>` has a plotting method for
+all point pairs at their separating distances. It is available as a 
+return type, but can also be called directly:
+
+.. GENERATED FROM PYTHON SOURCE LINES 72-76
+
+.. code-block:: default
+
+    fig = v.distance_difference_plot() 
+
+    plotly.io.show(fig)
+
+
+
+
+.. raw:: html
+    :file: images/sphx_glr_plot_variogram_002.html
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 77-84
+
+The variogram instance has a lot of quality measures to judge the goodness
+of fit for the theoretical model. They are implemented as properties and can
+be used like attribtues, while being always up to date if the variogram is mutated.
+Another helpful method is :func:`cross_validate <skgstat.Variogram.cross_validate>`.
+This will run a leave-one-out cross validation by interpolating the missing point for 
+all points. This is especially useful in cases, where a theoretical model fits well,
+but the spatial properties are not well captured. 
+
+.. GENERATED FROM PYTHON SOURCE LINES 84-94
+
+.. code-block:: default
+
+
+    # calculate the rmse of the model
+    print(f"{v.model.__name__} RMSE:  {v.rmse}")
+
+    # get the cross-validation time
+    from time import time
+    t1 = time()
+    rmse = v.cross_validate()
+    t2 = time()
+    print('Cross-validated RMSE: %.2f  (took: %2fs)' % (rmse, t2 - t1))
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    exponential RMSE:  39.91457083112961
+    Cross-validated RMSE: 12.08  (took: 6.500153s)
+
+
+
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.376 seconds)
+   **Total running time of the script:** ( 0 minutes  18.900 seconds)
 
 
 .. _sphx_glr_download_auto_examples_geostat_plot_variogram.py:

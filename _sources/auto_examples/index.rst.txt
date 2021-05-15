@@ -25,6 +25,27 @@ The following examples demonstrate the usage of the geostatistics toolbox.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="With the help of a variogram that describes spatial properties of  a sample, the sample can be ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/geostat/images/thumb/sphx_glr_plot_ordinary_kriging_thumb.png
+     :alt: Ordinary Kriging
+
+     :ref:`sphx_glr_auto_examples_geostat_plot_ordinary_kriging.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/geostat/plot_ordinary_kriging
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Use the geostatistics toolbox to estimate a variogram and use one of the many plots.">
 
 .. only:: html

@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hydrobox.geostat.simple_kriging &#8212; HydroBox 0.2.0 documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hydrobox.geostat.ordinary_kriging" href="hydrobox.geostat.ordinary_kriging.html" />
+    <link rel="prev" title="hydrobox.geostat.gridsearch" href="hydrobox.geostat.gridsearch.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">HydroBox</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../toolboxes.html">
+  Toolboxes
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../auto_examples/index.html">
+  Hydrobox Examples
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="hydrobox.geostat.variogram.html">
+   hydrobox.geostat.variogram
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="hydrobox.geostat.gridsearch.html">
+   hydrobox.geostat.gridsearch
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   hydrobox.geostat.simple_kriging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="hydrobox.geostat.ordinary_kriging.html">
+   hydrobox.geostat.ordinary_kriging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="hydrobox.geostat.universal_kriging.html">
+   hydrobox.geostat.universal_kriging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="hydrobox.geostat.ext_drift_kriging.html">
+   hydrobox.geostat.ext_drift_kriging
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="hydrobox-geostat-simple-kriging">
+<h1>hydrobox.geostat.simple_kriging<a class="headerlink" href="#hydrobox-geostat-simple-kriging" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="hydrobox.geostat.simple_kriging">
+<span class="sig-prename descclassname"><span class="pre">hydrobox.geostat.</span></span><span class="sig-name descname"><span class="pre">simple_kriging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variogram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_resolution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cond_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nugget'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pseudo_inv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pseudo_inv_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pinv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'plot'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hydrobox.geostat.simple_kriging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a scikit-gstat <a class="reference external" href="https://mmaelicke.github.io/scikit-gstat/reference/variogram.html#skgstat.Variogram" title="(in SciKit GStat)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variogram</span></code></a> to estimate
+spatial properties of a sample. Uses this variogram to interpolate
+using kriging. The Kriging is done with the
+<a class="reference external" href="https://geostat-framework.readthedocs.io/projects/gstools/en/latest/generated/gstools.krige.Simple.html#gstools.krige.Simple" title="(in GSTools v1.3.0rc3.dev49)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simple</span></code></a> class. Refer to the docs
+of <a class="reference external" href="https://geostat-framework.readthedocs.io/projects/gstools/en/latest/generated/gstools.krige.Simple.html#gstools.krige.Simple" title="(in GSTools v1.3.0rc3.dev49)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simple</span></code></a> to learn about the
+parameters.</p>
+<p>For simple kriging you need to pass the real mean value of the
+field (not the sample) in order to work correctly. If that is not
+available, refer to <a class="reference internal" href="hydrobox.geostat.ordinary_kriging.html#hydrobox.geostat.ordinary_kriging" title="hydrobox.geostat.ordinary_kriging"><code class="xref py py-func docutils literal notranslate"><span class="pre">ordinary_kriging</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Right now, there are only very limited possibilities to specify
+an interpolation grid. Only setting the resolution of the result
+like: <code class="docutils literal notranslate"><span class="pre">50x50</span></code> is possible by passing the integer <code class="docutils literal notranslate"><span class="pre">50</span></code>.
+More fine-grained control will be added with a future release.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variogram</strong> (<a class="reference external" href="https://mmaelicke.github.io/scikit-gstat/reference/variogram.html#skgstat.Variogram" title="(in SciKit GStat)"><em>skgstat.Variogram</em></a>) – Variogram used for kriging</p></li>
+<li><p><strong>grid_resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Resoultion of the interpolation grid. The resolution will be used
+in all input data dimensions, which can lead to non-quadratic
+grid cells.</p></li>
+<li><p><strong>mean</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The mean value of the field, that has to be known a priori.
+If you pass bs here, you will interpolate bs.</p></li>
+<li><p><strong>exact</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True (default), the input data will be matched exactly.
+Refer to <a class="reference external" href="https://geostat-framework.readthedocs.io/projects/gstools/en/latest/generated/gstools.krige.Simple.html#gstools.krige.Simple" title="(in GSTools v1.3.0rc3.dev49)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simple</span></code></a>
+for more info.</p></li>
+<li><p><strong>cond_err</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – Measurement error, or variogram nugget.
+Refer to <a class="reference external" href="https://geostat-framework.readthedocs.io/projects/gstools/en/latest/generated/gstools.krige.Simple.html#gstools.krige.Simple" title="(in GSTools v1.3.0rc3.dev49)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simple</span></code></a>
+for more info.</p></li>
+<li><p><strong>pseudo_inv</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, the Kriging is more robust, but also slower.
+Refer to <a class="reference external" href="https://geostat-framework.readthedocs.io/projects/gstools/en/latest/generated/gstools.krige.Simple.html#gstools.krige.Simple" title="(in GSTools v1.3.0rc3.dev49)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simple</span></code></a>
+for more info.</p></li>
+<li><p><strong>pseudo_inv_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Type of matrix inversion used if pseudo_inv is True.
+Refer to <a class="reference external" href="https://geostat-framework.readthedocs.io/projects/gstools/en/latest/generated/gstools.krige.Simple.html#gstools.krige.Simple" title="(in GSTools v1.3.0rc3.dev49)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Simple</span></code></a>
+for more info.</p></li>
+<li><p><strong>return_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Specify how the result should be retuned. Can be the
+kriging class itself (<code class="docutils literal notranslate"><span class="pre">'object'</span></code>), the interpolated
+grid (<code class="docutils literal notranslate"><span class="pre">'grid'</span></code>) or a plot of the grid (<code class="docutils literal notranslate"><span class="pre">'plot'</span></code>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.20)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Figure</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p><strong>results</strong> (<em>numpy.ndarray, numpy.ndarray</em>) – Interpolation grid and kriging error grid</p></li>
+<li><p><strong>fig</strong> (<em>plotly.graph_objects.Figure, matplotlib.Figure</em>) – Figure of the result plot.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="hydrobox.geostat.gridsearch.html" title="previous page">hydrobox.geostat.gridsearch</a>
+    <a class='right-next' id="next-link" href="hydrobox.geostat.ordinary_kriging.html" title="next page">hydrobox.geostat.ordinary_kriging</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Mirko Mälicke.<br/>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.1.<br/>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
