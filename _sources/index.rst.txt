@@ -6,6 +6,13 @@
 Welcome to HydroBox's documentation!
 ====================================
 
+.. note::
+   Major parts of the toolbox are currently re-written. Most interfaces of
+   any function of version < 0.2 will most likely not work anymore.
+   The aim is to produce a unified interface for hydrobox.
+   Secondly, hydrobox is mainly pushed to reuse other Python packages within
+   this scope, instead of re-implementing functions that are already there.
+
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
