@@ -1,6 +1,11 @@
 # HydroBox
 
-#
+
+![PyPI](https://img.shields.io/pypi/v/hydrobox?color=green&logo=pypi&style=flat-square)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/vforwater/hydrobox?logo=github&style=flat-square)
+[![Test and docs](https://github.com/VForWaTer/hydrobox/actions/workflows/main.yaml/badge.svg)](https://github.com/VForWaTer/hydrobox/actions/workflows/main.yaml)
+
+
 **The HydroBox is mainly a toolbox used in the [V-FOR-WaTer](https://vforwater.de) Project. It will be expanded to
 serve general hydrological data exploration with a future release.**
 
@@ -15,4 +20,4 @@ As of this writing these toolboxes are:
 In development are:
 
 * `uncertainty_framwork` for uncertainty analysis
-* `britget` for evapotranspiration tools
+* `bridget` for evapotranspiration tools
