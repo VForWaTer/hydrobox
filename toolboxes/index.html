@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>hydrobox.geostat.variogram &#8212; HydroBox 0.2.0 documentation</title>
+    <title>Toolboxes Overview &#8212; HydroBox 0.2.0 documentation</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -37,6 +37,8 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Geostatistics" href="geostat.html" />
+    <link rel="prev" title="Welcome to HydroBox" href="../index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -68,8 +70,8 @@
       
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../toolboxes/index.html">
+    <li class="toctree-l1 current active nav-item">
+ <a class="current reference internal nav-link" href="#">
   Toolboxes Overview
  </a>
 </li>
@@ -109,7 +111,56 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    
+    <p class="caption">
+ <span class="caption-text">
+  All toolboxes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="geostat.html">
+   Geostatistics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gen_modules/hydrobox.geostat.variogram.html">
+     hydrobox.geostat.variogram
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gen_modules/hydrobox.geostat.gridsearch.html">
+     hydrobox.geostat.gridsearch
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gen_modules/hydrobox.geostat.simple_kriging.html">
+     hydrobox.geostat.simple_kriging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gen_modules/hydrobox.geostat.ordinary_kriging.html">
+     hydrobox.geostat.ordinary_kriging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gen_modules/hydrobox.geostat.universal_kriging.html">
+     hydrobox.geostat.universal_kriging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gen_modules/hydrobox.geostat.ext_drift_kriging.html">
+     hydrobox.geostat.ext_drift_kriging
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
   </div>
 </nav>
             </div>
@@ -144,35 +195,14 @@
               
               <div>
                 
-  <div class="section" id="hydrobox-geostat-variogram">
-<h1>hydrobox.geostat.variogram<a class="headerlink" href="#hydrobox-geostat-variogram" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="hydrobox.geostat.variogram">
-<span class="sig-prename descclassname"><span class="pre">hydrobox.geostat.</span></span><span class="sig-name descname"><span class="pre">variogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'matheron'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spherical'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'euclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'even'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'trf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_nugget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxlag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_lags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'object'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hydrobox.geostat.variogram" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uses scikit-gstat to estimate a Variogram.
-Refer to the <a class="reference external" href="https://mmaelicke.github.io/scikit-gstat/reference/variogram.html#skgstat.Variogram" title="(in SciKit GStat)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variogram</span></code></a> class
-to learn about the different Parameters.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>return_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Specify how the Variogram instance should be returned. Object will
-return the actual instance. ‘describe’ is the dictionary output
-generated by the class, which is serializable. All other options
-return the different plot types</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Variogram</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p><strong>variogram</strong> (<em>skgstat.Variogram</em>) – If the return type is <cite>‘object’</cite></p></li>
-<li><p><strong>plot</strong> (<em>plotly.Figure, matplotlib.pyplot.Figure</em>) – If the return type is one of the plots</p></li>
-<li><p><strong>description</strong> (<em>dict</em>) – If the return type is <cite>‘describe’</cite></p></li>
+  <div class="section" id="toolboxes-overview">
+<h1>Toolboxes Overview<a class="headerlink" href="#toolboxes-overview" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">All toolboxes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="geostat.html">Geostatistics</a></li>
 </ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
+</div>
 </div>
 
 
@@ -181,6 +211,8 @@ return the different plot types</p>
               
               <div class='prev-next-bottom'>
                 
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">Welcome to HydroBox</a>
+    <a class='right-next' id="next-link" href="geostat.html" title="next page">Geostatistics</a>
 
               </div>
               

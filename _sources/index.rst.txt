@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to HydroBox's documentation!
-====================================
+Welcome to HydroBox
+===================
 
 .. note::
    Major parts of the toolbox are currently re-written. Most interfaces of
@@ -14,15 +14,32 @@ Welcome to HydroBox's documentation!
    this scope, instead of re-implementing functions that are already there.
 
 .. toctree::
+   :hidden:
    :maxdepth: 1
    :caption: Contents:
 
-   toolboxes
+   toolboxes/index
    auto_examples/index
 
-Indices and tables
-==================
+Installation
+============
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+PyPI
+----
+
+Install hydrobox from the Python Pachage Index like:
+
+.. code-block:: bash
+
+   pip install hydrobox
+
+Github
+------
+
+You can install hydrobox from source like:
+
+.. code-block:: bash
+
+   git clone git@github.com:vforwater/hydrobox
+   cd hydrobox
+   pip install -e .
