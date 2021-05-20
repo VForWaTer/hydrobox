@@ -20,7 +20,7 @@ df = pancake()
 
 #%%
 # Estimate a exponential variogram again. More details are given in the 
-# :ref:`plot_variogram.py` example.
+# :ref:`sphx_glr_auto_examples_geostat_plot_variogram.py` example.
 
 vario = hydrobox.geostat.variogram(
     coordinates=df[['x', 'y']].values,

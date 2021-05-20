@@ -225,11 +225,14 @@ tasks. Variogram analysis can be done with <a class="reference internal" href="g
 which wraps the scikit-gstat Variogram class.</p>
 <div class="section" id="variogram-estimation">
 <h3>Variogram estimation<a class="headerlink" href="#variogram-estimation" title="Permalink to this headline">¶</a></h3>
+<p>There are two major functions to estimate variograms. The <a class="reference internal" href="gen_modules/hydrobox.geostat.variogram.html#hydrobox.geostat.variogram" title="hydrobox.geostat.variogram"><code class="xref py py-func docutils literal notranslate"><span class="pre">variogram</span></code></a>
+function and the <a class="reference internal" href="gen_modules/hydrobox.geostat.gridsearch.html#hydrobox.geostat.gridsearch" title="hydrobox.geostat.gridsearch"><code class="xref py py-func docutils literal notranslate"><span class="pre">gridsearch</span></code></a>, which will select optimal
+variogram parameters, based on a cross-validated score.</p>
 <div class="section" id="variogram-examples">
 <h4>Variogram examples<a class="headerlink" href="#variogram-examples" title="Permalink to this headline">¶</a></h4>
-<div class="sphx-glr-thumbcontainer" tooltip="The SciKit-GStat package can be connected to scikit-learn i.e. to use the model optimization su..."><div class="figure align-default" id="id1">
-<img alt="GridSearch optimization" src="_images/sphx_glr_plot_gridsearch_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/geostat/plot_gridsearch.html#sphx-glr-auto-examples-geostat-plot-gridsearch-py"><span class="std std-ref">GridSearch optimization</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="sphx-glr-thumbcontainer" tooltip="Use the geostatistics toolbox to estimate a variogram and use one of the many plots. These plot..."><div class="figure align-default" id="id1">
+<img alt="Estimate a Variogram" src="_images/sphx_glr_plot_variogram_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="auto_examples/geostat/plot_variogram.html#sphx-glr-auto-examples-geostat-plot-variogram-py"><span class="std std-ref">Estimate a Variogram</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The SciKit-GStat package can be connected to scikit-learn i.e. to use the model optimization su..."><div class="figure align-default" id="id2">
 <img alt="GridSearch optimization" src="_images/sphx_glr_plot_gridsearch_thumb.png" />
@@ -255,7 +258,7 @@ which wraps the scikit-gstat Variogram class.</p>
 <div class="section" id="kriging">
 <h3>Kriging<a class="headerlink" href="#kriging" title="Permalink to this headline">¶</a></h3>
 <p>Kriging can be performed, after a variogram was estimated. the <a class="reference external" href="https://mmaelicke.github.io/scikit-gstat/reference/variogram.html#skgstat.Variogram" title="(in SciKit GStat)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variogram</span></code></a>
-is exported to gstools and one of the <code class="xref any docutils literal notranslate"><span class="pre">Krige</span></code> classes will be used for
+is exported to gstools and one of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Krige</span></code> classes will be used for
 kriging.</p>
 <div class="section" id="kriging-examples">
 <h4>Kriging examples<a class="headerlink" href="#kriging-examples" title="Permalink to this headline">¶</a></h4>

@@ -3,7 +3,9 @@ Estimate a Variogram
 ====================
 
 Use the geostatistics toolbox to estimate a variogram and use one of the many
-plots.
+plots. These plots help to understand the spatial properties of a variogram,
+and finally, the :class:`Variogram <skgstat.Variogram>` object itself can be
+returned and used in one of the Kriging routines.
 
 """
 from pprint import pprint
