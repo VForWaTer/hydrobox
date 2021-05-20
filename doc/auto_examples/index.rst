@@ -46,7 +46,7 @@ The following examples demonstrate the usage of the geostatistics toolbox.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Use the geostatistics toolbox to estimate a variogram and use one of the many plots.">
+    <div class="sphx-glr-thumbcontainer" tooltip="Use the geostatistics toolbox to estimate a variogram and use one of the many plots. These plot...">
 
 .. only:: html
 

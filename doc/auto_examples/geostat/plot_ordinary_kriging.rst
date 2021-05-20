@@ -63,7 +63,7 @@ Load sample data from the data sub-module
 .. GENERATED FROM PYTHON SOURCE LINES 22-24
 
 Estimate a exponential variogram again. More details are given in the 
-:ref:`plot_variogram.py` example.
+:ref:`sphx_glr_auto_examples_geostat_plot_variogram.py` example.
 
 .. GENERATED FROM PYTHON SOURCE LINES 24-34
 
@@ -126,7 +126,7 @@ This is most helpful if other grid should be constructed.
 
  .. code-block:: none
 
-    Took: 2.880257 sec
+    Took: 2.842178 sec
 
 
 
@@ -134,7 +134,7 @@ This is most helpful if other grid should be constructed.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.044 seconds)
+   **Total running time of the script:** ( 0 minutes  6.564 seconds)
 
 
 .. _sphx_glr_download_auto_examples_geostat_plot_ordinary_kriging.py:

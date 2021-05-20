@@ -22,9 +22,11 @@ Estimate a Variogram
 ====================
 
 Use the geostatistics toolbox to estimate a variogram and use one of the many
-plots.
+plots. These plots help to understand the spatial properties of a variogram,
+and finally, the :class:`Variogram <skgstat.Variogram>` object itself can be
+returned and used in one of the Kriging routines.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-16
+.. GENERATED FROM PYTHON SOURCE LINES 11-18
 
 .. code-block:: default
 
@@ -42,11 +44,11 @@ plots.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-18
+.. GENERATED FROM PYTHON SOURCE LINES 19-20
 
 Load sample data from the data sub-module
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-21
+.. GENERATED FROM PYTHON SOURCE LINES 20-23
 
 .. code-block:: default
 
@@ -60,14 +62,14 @@ Load sample data from the data sub-module
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-26
+.. GENERATED FROM PYTHON SOURCE LINES 24-28
 
 Estimate a variogram using a exponential model and 25 distance lags
 that are derived from a KMeans cluster algorithm
 Here, we use the describe output option to get a dictionary of 
 all variogram parameters
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-38
+.. GENERATED FROM PYTHON SOURCE LINES 28-40
 
 .. code-block:: default
 
@@ -94,11 +96,11 @@ all variogram parameters
  .. code-block:: none
 
     {'dist_func': 'euclidean',
-     'effective_range': 440.23387721972847,
+     'effective_range': 440.23387689607966,
      'estimator': 'matheron',
      'kwargs': {},
      'model': 'exponential',
-     'normalized_effective_range': 246442.01451357373,
+     'normalized_effective_range': 246442.01433239583,
      'normalized_nugget': 0,
      'normalized_sill': 2423777.7530702623,
      'nugget': 0,
@@ -118,12 +120,12 @@ all variogram parameters
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-41
+.. GENERATED FROM PYTHON SOURCE LINES 41-43
 
 There are various return types, one of them is the plot.
 This is the main plotting tool for variogram instances
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-53
+.. GENERATED FROM PYTHON SOURCE LINES 43-55
 
 .. code-block:: default
 
@@ -149,12 +151,12 @@ This is the main plotting tool for variogram instances
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-56
+.. GENERATED FROM PYTHON SOURCE LINES 56-58
 
 Alternatively you can return the :class:`Variogram <skgstat.Variogram>`
 object itself and use all the different settings and methods directly.
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-68
+.. GENERATED FROM PYTHON SOURCE LINES 58-70
 
 .. code-block:: default
 
@@ -185,13 +187,13 @@ object itself and use all the different settings and methods directly.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-72
+.. GENERATED FROM PYTHON SOURCE LINES 71-74
 
 The :class:`Variogram <skgstat.Variogram>` has a plotting method for
 all point pairs at their separating distances. It is available as a 
 return type, but can also be called directly:
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-76
+.. GENERATED FROM PYTHON SOURCE LINES 74-78
 
 .. code-block:: default
 
@@ -209,7 +211,7 @@ return type, but can also be called directly:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-84
+.. GENERATED FROM PYTHON SOURCE LINES 79-86
 
 The variogram instance has a lot of quality measures to judge the goodness
 of fit for the theoretical model. They are implemented as properties and can
@@ -219,7 +221,7 @@ This will run a leave-one-out cross validation by interpolating the missing poin
 all points. This is especially useful in cases, where a theoretical model fits well,
 but the spatial properties are not well captured. 
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-94
+.. GENERATED FROM PYTHON SOURCE LINES 86-96
 
 .. code-block:: default
 
@@ -243,8 +245,8 @@ but the spatial properties are not well captured.
 
  .. code-block:: none
 
-    exponential RMSE:  39.91457083112961
-    Cross-validated RMSE: 12.08  (took: 6.500153s)
+    exponential RMSE:  39.91457083112962
+    Cross-validated RMSE: 12.08  (took: 5.382931s)
 
 
 
@@ -252,7 +254,7 @@ but the spatial properties are not well captured.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  18.900 seconds)
+   **Total running time of the script:** ( 0 minutes  15.624 seconds)
 
 
 .. _sphx_glr_download_auto_examples_geostat_plot_variogram.py:
