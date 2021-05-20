@@ -79,7 +79,7 @@ def gridsearch(
     if variogram is not None:
         coordinates = variogram.coordinates
         values = variogram.values
-        kwargs.update(variogram.describe(flat=True))
+        kwargs.update(variogram.describe().get('params'))
 
     # handle cross-validate
     _, skg_m, skg_p = skg.__version__.split('.')
