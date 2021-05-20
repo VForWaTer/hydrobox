@@ -28,7 +28,7 @@ In development are:
 
 If you use the package in other software or for publications, please cite it like:
 
-  Mirko Mälicke, 2021. VForWaTer/hydrobox: Version 0.2. doi:10.5281/zenodo.4774860
+>  Mirko Mälicke, 2021. VForWaTer/hydrobox: Version 0.2. doi:10.5281/zenodo.4774860
 
 Be aware that the dependencies of hydrobox require a citation as well. The (non-exhaustive) list of packages that you must cite are:
 
