@@ -1,0 +1,5 @@
+=============
+Geostatistics
+=============
+
+.. automodule:: hydrobox.geostat
