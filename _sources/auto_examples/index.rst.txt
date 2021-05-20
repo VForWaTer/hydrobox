@@ -64,6 +64,27 @@ The following examples demonstrate the usage of the geostatistics toolbox.
    :hidden:
 
    /auto_examples/geostat/plot_variogram
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The SciKit-GStat package can be connected to scikit-learn i.e. to use the model optimization su...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/geostat/images/thumb/sphx_glr_plot_gridsearch_thumb.png
+     :alt: GridSearch optimization
+
+     :ref:`sphx_glr_auto_examples_geostat_plot_gridsearch.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/geostat/plot_gridsearch
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
