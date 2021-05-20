@@ -1,0 +1,23 @@
+
+
+Examples using ``hydrobox.geostat.ordinary_kriging``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="With the help of a variogram that describes spatial properties of  a sample, the sample can be ...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/geostat/images/thumb/sphx_glr_plot_ordinary_kriging_thumb.png
+     :alt: Ordinary Kriging
+
+     :ref:`sphx_glr_auto_examples_geostat_plot_ordinary_kriging.py`
+
+.. raw:: html
+
+    </div>
+
+.. only:: not html
+
+ * :ref:`sphx_glr_auto_examples_geostat_plot_ordinary_kriging.py`

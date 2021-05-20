@@ -6,10 +6,7 @@ coefficient.
 import numpy as np
 import pandas as pd
 
-from hydrobox.utils.decorators import accept
 
-
-@accept(x=(pd.Series, np.ndarray))
 def richards_baker(x):
     r"""Richards-Baker Flashiness Index
 

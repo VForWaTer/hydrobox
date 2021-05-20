@@ -1,0 +1,64 @@
+name: Test and docs
+
+on: push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-18.04
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      
+      - name: Install Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.8
+        
+      - name: Install Hydrobox
+        run: pip3 install -e .
+      
+      - name: Install PyTest
+        run: pip install pytest pytest-cov pytest-depends
+
+      - name: Test
+        run: pytest --cov-config=.coveragerc --cov=./ --cov-report=xml
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@master
+        with:
+          file: ./coverage.xml
+
+  docs:
+    name: Build docs
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      
+      - name: Install Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.8
+        
+      - name: Install Hydrobox
+        run: pip3 install -e .
+      
+      - name: Install Doc requirements
+        run: pip install sphinx pydata_sphinx_theme sphinx-gallery sphinx_autodoc_typehints
+
+      - name: Build docs
+        run: | 
+          cd doc
+          make html
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: doc/_build/html
+
+
