@@ -84,7 +84,7 @@ clf = hydrobox.geostat.gridsearch(
 # get the scores and their std
 scores = clf.cv_results_['mean_test_score']
 scores_std = clf.cv_results_['std_test_score']
-x = range(len(scores))
+x = list(range(len(scores)))
 
 #%%
 # Plot the result
