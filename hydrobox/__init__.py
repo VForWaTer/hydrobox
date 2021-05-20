@@ -9,5 +9,5 @@ import hydrobox.utils
 from hydrobox.plotting._backend import plotting_backend
 import hydrobox.geostat
 
-__version__ = '0.1.6'
+__version__ = '0.2.0'
 __plot_backend__ = 'matplotlib'
