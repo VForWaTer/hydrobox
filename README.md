@@ -3,7 +3,7 @@
 
 ![PyPI](https://img.shields.io/pypi/v/hydrobox?color=green&logo=pypi&style=flat-square)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/vforwater/hydrobox?logo=github&style=flat-square)
-[![Test and docs](https://github.com/VForWaTer/hydrobox/actions/workflows/main.yaml/badge.svg)](https://github.com/VForWaTer/hydrobox/actions/workflows/main.yaml)
+![GitHub commit checks state](https://img.shields.io/github/checks-status/vforwater/hydrobox/main?label=build%20status&logo=github&style=flat-square)
 
 
 **The HydroBox is mainly a toolbox used in the [V-FOR-WaTer](https://vforwater.de) Project. It will be expanded to
